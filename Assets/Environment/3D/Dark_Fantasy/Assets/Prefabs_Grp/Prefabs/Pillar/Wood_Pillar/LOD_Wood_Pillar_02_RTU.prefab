@@ -1,0 +1,151 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!65 &421896170934383321
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 478359977835891996}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.31, y: 4.4570227, z: 0.35}
+  m_Center: {x: 0, y: -0.06, z: 0}
+--- !u!65 &1111667997625602127
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 478359977835891996}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.9377025, y: 0.68, z: 0.2}
+  m_Center: {x: 0, y: 1.9, z: 0}
+--- !u!1 &5052525461408115030
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5046843000597667152}
+  - component: {fileID: 1072197455896141080}
+  m_Layer: 0
+  m_Name: LOD_Wood_Pillar_02_RTU
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5046843000597667152
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5052525461408115030}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1002237220206958502}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!205 &1072197455896141080
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5052525461408115030}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 0, y: -0.75900006, z: 0}
+  m_Size: 4.4570227
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.05894553
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 2135697629584272585}
+  m_Enabled: 1
+--- !u!1001 &5913817628782039446
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 5046843000597667152}
+    m_Modifications:
+    - target: {fileID: 6102764598280264842, guid: cb7a654220a349f4db5abbb76d3f32d5, type: 3}
+      propertyPath: m_Name
+      value: Wood_Pillar_02_Lod0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6916034507449779760, guid: cb7a654220a349f4db5abbb76d3f32d5, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6916034507449779760, guid: cb7a654220a349f4db5abbb76d3f32d5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6916034507449779760, guid: cb7a654220a349f4db5abbb76d3f32d5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.759
+      objectReference: {fileID: 0}
+    - target: {fileID: 6916034507449779760, guid: cb7a654220a349f4db5abbb76d3f32d5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6916034507449779760, guid: cb7a654220a349f4db5abbb76d3f32d5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6916034507449779760, guid: cb7a654220a349f4db5abbb76d3f32d5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6916034507449779760, guid: cb7a654220a349f4db5abbb76d3f32d5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6916034507449779760, guid: cb7a654220a349f4db5abbb76d3f32d5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6916034507449779760, guid: cb7a654220a349f4db5abbb76d3f32d5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6916034507449779760, guid: cb7a654220a349f4db5abbb76d3f32d5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6916034507449779760, guid: cb7a654220a349f4db5abbb76d3f32d5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cb7a654220a349f4db5abbb76d3f32d5, type: 3}
+--- !u!1 &478359977835891996 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6102764598280264842, guid: cb7a654220a349f4db5abbb76d3f32d5, type: 3}
+  m_PrefabInstance: {fileID: 5913817628782039446}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1002237220206958502 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6916034507449779760, guid: cb7a654220a349f4db5abbb76d3f32d5, type: 3}
+  m_PrefabInstance: {fileID: 5913817628782039446}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &2135697629584272585 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5742542941557931359, guid: cb7a654220a349f4db5abbb76d3f32d5, type: 3}
+  m_PrefabInstance: {fileID: 5913817628782039446}
+  m_PrefabAsset: {fileID: 0}

@@ -1,0 +1,158 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1644511738110947858
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8406682672581183825}
+  m_Layer: 0
+  m_Name: SNAP_LOD_Tower_Battlements_Module_01
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8406682672581183825
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1644511738110947858}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 7488462796371588873}
+  - {fileID: 7488462796682704491}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &3845107237341969828
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 8406682672581183825}
+    m_Modifications:
+    - target: {fileID: 5958488343195536045, guid: 143a0d48b62d6a14f8942ed58c1c5464, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5958488343195536045, guid: 143a0d48b62d6a14f8942ed58c1c5464, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5958488343195536045, guid: 143a0d48b62d6a14f8942ed58c1c5464, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 5958488343195536045, guid: 143a0d48b62d6a14f8942ed58c1c5464, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5958488343195536045, guid: 143a0d48b62d6a14f8942ed58c1c5464, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5958488343195536045, guid: 143a0d48b62d6a14f8942ed58c1c5464, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5958488343195536045, guid: 143a0d48b62d6a14f8942ed58c1c5464, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5958488343195536045, guid: 143a0d48b62d6a14f8942ed58c1c5464, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5958488343195536045, guid: 143a0d48b62d6a14f8942ed58c1c5464, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5958488343195536045, guid: 143a0d48b62d6a14f8942ed58c1c5464, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5958488343195536045, guid: 143a0d48b62d6a14f8942ed58c1c5464, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6483808218052661271, guid: 143a0d48b62d6a14f8942ed58c1c5464, type: 3}
+      propertyPath: m_Name
+      value: Tower_Battlements_Module_01B
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 143a0d48b62d6a14f8942ed58c1c5464, type: 3}
+--- !u!4 &7488462796371588873 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5958488343195536045, guid: 143a0d48b62d6a14f8942ed58c1c5464, type: 3}
+  m_PrefabInstance: {fileID: 3845107237341969828}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &3856810462260435118
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 8406682672581183825}
+    m_Modifications:
+    - target: {fileID: 5938692729013481157, guid: 5342acc29711b0a4f823036e5d63455f, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5938692729013481157, guid: 5342acc29711b0a4f823036e5d63455f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5938692729013481157, guid: 5342acc29711b0a4f823036e5d63455f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5938692729013481157, guid: 5342acc29711b0a4f823036e5d63455f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5938692729013481157, guid: 5342acc29711b0a4f823036e5d63455f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5938692729013481157, guid: 5342acc29711b0a4f823036e5d63455f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5938692729013481157, guid: 5342acc29711b0a4f823036e5d63455f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5938692729013481157, guid: 5342acc29711b0a4f823036e5d63455f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5938692729013481157, guid: 5342acc29711b0a4f823036e5d63455f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5938692729013481157, guid: 5342acc29711b0a4f823036e5d63455f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5938692729013481157, guid: 5342acc29711b0a4f823036e5d63455f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6422600627724711039, guid: 5342acc29711b0a4f823036e5d63455f, type: 3}
+      propertyPath: m_Name
+      value: Tower_Battlements_Module_01A
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5342acc29711b0a4f823036e5d63455f, type: 3}
+--- !u!4 &7488462796682704491 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5938692729013481157, guid: 5342acc29711b0a4f823036e5d63455f, type: 3}
+  m_PrefabInstance: {fileID: 3856810462260435118}
+  m_PrefabAsset: {fileID: 0}
