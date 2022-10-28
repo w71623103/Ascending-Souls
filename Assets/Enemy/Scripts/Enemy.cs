@@ -65,7 +65,7 @@ public abstract class Enemy : MonoBehaviour
 
     }
 
-    public abstract void OnHit(Vector2 hitBackDir, float hitBackSpeed, int damage, Weapons.PushType pushtype);
+    public abstract void OnHit(Vector2 hitBackDir, float hitBackSpeed, Weapons.PushType pushtype);
 
     public void endHurt()
     {

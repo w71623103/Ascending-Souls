@@ -73,6 +73,7 @@ public class PlayerGrappleModel
 {
     public GameObject point;
     public float reachTolerance;
+    public float directionChangeTolerance;
     public float grappleJumpSpeed;
 
     public float grapplePointExcludeCD;

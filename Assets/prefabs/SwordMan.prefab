@@ -162,9 +162,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 0}
   hitSound:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8300000, guid: 1946a91a45b78fd449dfd125e7868868, type: 3}
+  - {fileID: 8300000, guid: 6b1fc426afd3dca4288bb19955b224aa, type: 3}
+  - {fileID: 8300000, guid: ca83b9f716e0cf343b8567fcc975fba2, type: 3}
+  - {fileID: 8300000, guid: 5d6027e220b56ad4595b9dc4b0fe5295, type: 3}
 --- !u!114 &1457070579528074383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,8 +190,8 @@ MonoBehaviour:
   myHp: {fileID: 0}
   allowHitRecover: 1
   hitDir: {x: 0, y: 0}
-  flashTime: 0.1
-  groundHitDis: 0.2
+  flashTime: 0.01
+  groundHitDis: 1
 --- !u!212 &1457070579528074368
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -211,7 +212,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 95d49eebaf66378448b059322cf15f8f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -272,7 +273,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 5
+  m_Mass: 50
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 3
@@ -422,7 +423,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6407173523839185746}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.033, y: -0.818, z: 1}
+  m_LocalPosition: {x: -0.003, y: -0.8, z: 0}
   m_LocalScale: {x: 0.08095315, y: 0.08095315, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

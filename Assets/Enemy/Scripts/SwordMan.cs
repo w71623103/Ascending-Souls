@@ -28,7 +28,7 @@ public class SwordMan : Enemy
         checkGround();
     }
 
-    public override void OnHit(Vector2 hitBackDir, float hitBackSpeed, int damage, Weapons.PushType pushtype)
+    public override void OnHit(Vector2 hitBackDir, float hitBackSpeed, Weapons.PushType pushtype)
     {
         hitDir = hitBackDir;
         switch(pushtype)
@@ -60,8 +60,6 @@ public class SwordMan : Enemy
         {
             ChangeState(hurtState);
         }
-        //take damage
-        myHp.decreaseHP(damage);
     }
 
     

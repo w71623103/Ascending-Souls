@@ -30,7 +30,12 @@ public class AttackCol : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        collision.gameObject.GetComponent<Enemy>().OnHit(attackDir, hitBackSpeed, damage, pushType);
+        collision.gameObject.GetComponent<Enemy>().OnHit(attackDir, hitBackSpeed, pushType);
+        if(collision.gameObject.GetComponent<Hp>() != null)
+        {
+            //take damage
+            collision.gameObject.GetComponent<Hp>().decreaseHP(damage);
+        }
         PlayerJuice.Instance.HitPause(hitPauseTime);
     }
 

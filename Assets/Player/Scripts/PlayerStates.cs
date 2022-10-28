@@ -253,6 +253,7 @@ public class PlayerAttackUPState : PlayerState
 
 public class PlayerGrappleState : PlayerState
 {
+    private Vector3 GrappleDirection;
     public override void EnterState(PlayerController pl)
     {
         pl.statevisualizer = PlayerController.state.grapple;
@@ -261,6 +262,7 @@ public class PlayerGrappleState : PlayerState
         pl.grappleModel.playerLine.enabled = true;
         pl.grappleModel.playerLine.SetPosition(0, pl.transform.position);
         pl.grappleModel.playerLine.SetPosition(1, pl.grappleModel.point.transform.position);
+        
     }
     public override void Update(PlayerController pl)
     {
@@ -283,13 +285,14 @@ public class PlayerGrappleState : PlayerState
     }
     public override void FixedUpdate(PlayerController pl)
     {
-        Vector3 GrappleDirection = Vector3.Normalize((pl.grappleModel.point.transform.position - pl.transform.position));
+        if (Vector3.Distance(pl.transform.position, pl.grappleModel.point.transform.position) > pl.grappleModel.directionChangeTolerance) GrappleDirection = Vector3.Normalize((pl.grappleModel.point.transform.position - pl.transform.position));
         pl.playerRB.velocity = new Vector2(GrappleDirection.x, GrappleDirection.y) * pl.grappleModel.grappleJumpSpeed;
     }
     public override void ExitState(PlayerController pl)
     {
         pl.grappleModel.playerLine.enabled = false;
         pl.playerRB.gravityScale = 3f;
+        pl.playerRB.velocity = new Vector2(GrappleDirection.x, GrappleDirection.y) * pl.grappleModel.grappleJumpSpeed;
     }
 }
 

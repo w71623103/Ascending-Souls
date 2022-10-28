@@ -749,10 +749,11 @@ MonoBehaviour:
     nextWeapon: {fileID: 0}
     bareHand: {fileID: 11400000, guid: 6f706f8ae6adad2408b6341ce1f2d070, type: 2}
     sword: {fileID: 11400000, guid: e615ae38f820bad41bbbea75b95e8f82, type: 2}
-    greatSword: {fileID: 0}
+    greatSword: {fileID: 11400000, guid: 65d372fed7720a344ae0d9e044a1b97b, type: 2}
     swordPick: {fileID: 2288488194143249872, guid: 3139897b7adcbca41a131a19a899960d,
       type: 3}
-    greatSwordPick: {fileID: 0}
+    greatSwordPick: {fileID: 2288488194143249872, guid: 5f338bcd3783d8c40b6795ed6bd33652,
+      type: 3}
   interactModel:
     interactBoxSize: {x: 0, y: 0}
   playerRB: {fileID: 0}
@@ -850,7 +851,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 3.125, y: 2.5}
+  m_Size: {x: 3.125, y: 3.125}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
