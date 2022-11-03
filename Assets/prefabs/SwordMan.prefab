@@ -182,7 +182,13 @@ MonoBehaviour:
     isGrounded: 0
   idleModel:
     idleTimer: 0
-    idleTimerMax: 0
+    idleTimerMax: 2
+  patrolModel:
+    reached: 0
+    patrolDestination: []
+    currentDestination: 0
+    patrolSpeed: 4
+    patrolTolerance: 0.5
   statevisualizer: 0
   enemyRB: {fileID: 0}
   enemyAnim: {fileID: 0}

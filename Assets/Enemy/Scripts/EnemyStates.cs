@@ -119,6 +119,7 @@ public class SwordManIdleState : EnemyIdleState
         em.statevisualizer = Enemy.enemyStates.Idle;
         //Reset Idle Timer;
         em.idleModel.idleTimer = em.idleModel.idleTimerMax;
+        em.enemyAnim.Play("Idle");
     }
     public override void Update(Enemy em)
     {
@@ -159,7 +160,8 @@ public class SwordManHurtState : EnemyHurtState
     public override void EnterState(Enemy em)
     {
         em.statevisualizer = Enemy.enemyStates.Hurt;
-        em.enemyAnim.SetTrigger("isHurt");
+        //em.enemyAnim.SetTrigger("isHurt");
+        em.enemyAnim.Play("Hurt");
     }
     public override void Update(Enemy em)
     {
@@ -185,13 +187,24 @@ public class SwordManPatrolState : EnemyPatrolState
     {
         em.statevisualizer = Enemy.enemyStates.Patrol;
         //turn to next patrol pos;
-
+        if(em.patrolModel.patrolDestination[em.patrolModel.currentDestination].position.x > em.transform.position.x)
+        {
+            em.moveModel.Direction = EnemyMoveModel.EnemyDirection.Right;
+        }
+        else
+        {
+            em.moveModel.Direction = EnemyMoveModel.EnemyDirection.Left;
+        }
         em.patrolModel.reached = false;
+        em.enemyAnim.Play("Run");
     }
     public override void Update(Enemy em)
     {
         //walk to next pos
-        
+        if (Mathf.Abs(em.transform.position.x - em.patrolModel.patrolDestination[em.patrolModel.currentDestination].position.x) > em.patrolModel.patrolTolerance)
+            em.enemyRB.velocity = new Vector2((int)em.moveModel.Direction, em.enemyRB.velocity.y) * em.patrolModel.patrolSpeed;
+        else
+            em.patrolModel.reached = true;
         //Switch State Logic
         if (em.target != null) //Player in Sight
         {

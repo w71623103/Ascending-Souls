@@ -27,11 +27,12 @@ public class EnemyPatrolModel
 {
     public bool reached;
     public Transform[] patrolDestination;
-    public int currentDestination;
+    public int currentDestination = 0;
     public void nextPos()
     {
         currentDestination++;
         if(currentDestination >= patrolDestination.Length) currentDestination = 0;
     }
     public float patrolSpeed;
+    public float patrolTolerance = 0.5f;
 }
