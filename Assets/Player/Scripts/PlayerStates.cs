@@ -58,6 +58,28 @@ public class PlayerJumpState : PlayerState
     }
 }
 
+public class PlayerGrappleJumpState : PlayerState
+{
+    public override void EnterState(PlayerController pl)
+    {
+        /*if(!pl.slideModel.wallJumped)
+            pl.jumpModel.jumpCount -= 1;*/
+        pl.statevisualizer = PlayerController.state.gJump;
+    }
+    public override void Update(PlayerController pl)
+    {
+        if (pl.jumpModel.isGrounded && Mathf.Abs(pl.playerRB.velocity.y) < 0.1f) pl.ChangeState(pl.moveState);
+    }
+    public override void FixedUpdate(PlayerController pl)
+    {
+        //pl.playerRB.velocity = new Vector2(pl.moveModel.HorizontalMovement * pl.moveModel.hspeed, pl.playerRB.velocity.y);
+    }
+    public override void ExitState(PlayerController pl)
+    {
+        //pl.jumpModel.jumpCount = pl.jumpModel.jumpCountMax;
+    }
+}
+
 public class PlayerDashState : PlayerState
 {
     private int dashTriggerHash = Animator.StringToHash("dashTrigger");
@@ -279,7 +301,7 @@ public class PlayerGrappleState : PlayerState
             }
             else
             {
-                pl.ChangeState(pl.jumpState);
+                pl.ChangeState(pl.grappleJumpState);
             }
         }
     }
@@ -292,7 +314,7 @@ public class PlayerGrappleState : PlayerState
     {
         pl.grappleModel.playerLine.enabled = false;
         pl.playerRB.gravityScale = 3f;
-        pl.playerRB.velocity = new Vector2(GrappleDirection.x, GrappleDirection.y) * pl.grappleModel.grappleJumpSpeed;
+        pl.playerRB.velocity = new Vector2(GrappleDirection.x, GrappleDirection.y) * pl.grappleModel.grappleJumpEndSpeed;
     }
 }
 

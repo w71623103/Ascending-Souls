@@ -8,8 +8,13 @@ public abstract class Enemy : MonoBehaviour
     {
         Idle,
         Hurt,
+        Patrol,
+        Chase,
+        Attack,
     }
     public EnemyMoveModel moveModel = new EnemyMoveModel();
+    public EnemyIdleModel idleModel = new EnemyIdleModel();
+    public EnemyPatrolModel patrolModel = new EnemyPatrolModel();
 
     public enemyStates statevisualizer;
     [Header("Component")]
@@ -17,7 +22,6 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] public Animator enemyAnim;
     [SerializeField] public SpriteRenderer enemySP;
     [SerializeField] public SoundManager_Enemy soundM;
-    [SerializeField] protected Transform groundSensorStartPos;
     [SerializeField] protected Hp myHp;
 
     [Header("Hit")]
@@ -26,14 +30,25 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] public float flashTime = 0.1f;
     //[SerializeField] protected GameObject blood;
 
-    [Header("ground check")]
+    [Header("Ground check")]
+    [SerializeField] protected Transform groundSensorStartPos;
     [SerializeField] protected float groundHitDis = 0.2f;
     protected LayerMask groundMask;
 
-
+    [Header("Player check")]
+    [SerializeField] protected Transform eyePos;
+    public GameObject target;
+    [SerializeField] protected float sightDis = 5f;
+    protected LayerMask playerMask;
+    //
+    #region FSM
+    //The states All Enemies will share
     public EnemyState generalState;
     public EnemyIdleState idleState;
     public EnemyHurtState hurtState;
+    public EnemyAttackState attackState;
+    public EnemyPatrolState patrolState;
+    public EnemyChaseState chaseState;
 
     public void ChangeState(EnemyState newState)
     {
@@ -47,8 +62,11 @@ public abstract class Enemy : MonoBehaviour
             generalState.EnterState(this);
         }
     }
+    #endregion
 
-    // Start is called before the first frame update
+    // Start here is just for sample when creating new enemies
+    // the following code should appear in every kind of enemies
+    // copy and paste
     void Start()
     {
         groundMask = LayerMask.GetMask("Ground");
@@ -57,12 +75,6 @@ public abstract class Enemy : MonoBehaviour
         enemySP = GetComponent<SpriteRenderer>();
 
         ChangeState(idleState);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public abstract void OnHit(Vector2 hitBackDir, float hitBackSpeed, Weapons.PushType pushtype);
@@ -90,6 +102,19 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
+    protected void checkPlayer()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(eyePos.position, new Vector2((int)moveModel.Direction, 0), sightDis, playerMask);
+        Debug.DrawRay(eyePos.position, new Vector2((int)moveModel.Direction, 0), Color.red);
+        if (hit.collider != null)
+        {
+            target = hit.collider.gameObject;
+        }
+        else
+        {
+            target = null;
+        }
+    }
     public void turn()
     {
         if((int)moveModel.Direction == 1)
@@ -98,6 +123,7 @@ public abstract class Enemy : MonoBehaviour
             moveModel.Direction = EnemyMoveModel.EnemyDirection.Right;
     }
 
+    #region coroutines
     public void HitFlash()
     {
         StartCoroutine(HitFlashIE(flashTime));
@@ -109,4 +135,6 @@ public abstract class Enemy : MonoBehaviour
         yield return new WaitForSeconds(duration);
         enemySP.material.SetInt("_Hit", 0);
     }
+
+    #endregion
 }

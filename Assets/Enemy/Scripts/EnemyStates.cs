@@ -9,12 +9,72 @@ public abstract class EnemyState
     public abstract void FixedUpdate(Enemy em);
     public abstract void ExitState(Enemy em);
 }
-
+#region Enemy State
 public class EnemyIdleState : EnemyState
 {
     public override void EnterState(Enemy em)
     {
         em.statevisualizer = Enemy.enemyStates.Idle;
+    }
+    public override void Update(Enemy em)
+    {
+
+    }
+    public override void FixedUpdate(Enemy em)
+    {
+
+    }
+    public override void ExitState(Enemy em)
+    {
+
+    }
+}
+
+public class EnemyPatrolState : EnemyState
+{
+    public override void EnterState(Enemy em)
+    {
+        em.statevisualizer = Enemy.enemyStates.Patrol;
+    }
+    public override void Update(Enemy em)
+    {
+
+    }
+    public override void FixedUpdate(Enemy em)
+    {
+
+    }
+    public override void ExitState(Enemy em)
+    {
+
+    }
+}
+
+public class EnemyChaseState : EnemyState
+{
+    public override void EnterState(Enemy em)
+    {
+        em.statevisualizer = Enemy.enemyStates.Chase;
+    }
+    public override void Update(Enemy em)
+    {
+
+    }
+    public override void FixedUpdate(Enemy em)
+    {
+
+    }
+    public override void ExitState(Enemy em)
+    {
+
+    }
+}
+
+public class EnemyAttackState : EnemyState
+{
+    public override void EnterState(Enemy em)
+    {
+        em.statevisualizer = Enemy.enemyStates.Attack;
     }
     public override void Update(Enemy em)
     {
@@ -49,20 +109,40 @@ public class EnemyHurtState : EnemyState
 
     }
 }
+#endregion
 
+#region SwordMan States
 public class SwordManIdleState : EnemyIdleState
 {
     public override void EnterState(Enemy em)
     {
         em.statevisualizer = Enemy.enemyStates.Idle;
-        //em.enemyRB.gravityScale = 3f;
+        //Reset Idle Timer;
+        em.idleModel.idleTimer = em.idleModel.idleTimerMax;
     }
     public override void Update(Enemy em)
     {
+        //Gravity Management
         if (em.moveModel.isGrounded)
             em.enemyRB.gravityScale = 3f;
         else
             em.enemyRB.gravityScale = 2f;
+        //Gravity Management=============
+
+        //Reudce Idle Timer
+        em.idleModel.idleTimer -= Time.deltaTime;
+        //Reudce Idle Timer==============
+
+        //Switch State Logic
+        if (em.target != null) //Player in Sight
+        {
+            em.ChangeState(em.chaseState);
+        }
+        else if(em.idleModel.idleTimer <= 0f) //Idle Timer end
+        {
+            em.ChangeState(em.patrolState);
+        }
+        //Switch State Logic=============
     }
     public override void FixedUpdate(Enemy em)
     {
@@ -70,7 +150,7 @@ public class SwordManIdleState : EnemyIdleState
     }
     public override void ExitState(Enemy em)
     {
-
+        em.idleModel.idleTimer = 0f;
     }
 }
 
@@ -98,3 +178,78 @@ public class SwordManHurtState : EnemyHurtState
         //em.enemyRB.gravityScale = 3f;
     }
 }
+
+public class SwordManPatrolState : EnemyPatrolState
+{
+    public override void EnterState(Enemy em)
+    {
+        em.statevisualizer = Enemy.enemyStates.Patrol;
+        //turn to next patrol pos;
+
+        em.patrolModel.reached = false;
+    }
+    public override void Update(Enemy em)
+    {
+        //walk to next pos
+        
+        //Switch State Logic
+        if (em.target != null) //Player in Sight
+        {
+            em.ChangeState(em.chaseState);
+        }
+        else if (em.patrolModel.reached) //Reach patrol pos
+        {
+            em.patrolModel.nextPos();
+            em.ChangeState(em.idleState);
+        }
+    }
+    public override void FixedUpdate(Enemy em)
+    {
+
+    }
+    public override void ExitState(Enemy em)
+    {
+
+    }
+}
+
+public class SwordManChaseState : EnemyChaseState
+{
+    public override void EnterState(Enemy em)
+    {
+        em.statevisualizer = Enemy.enemyStates.Chase;
+    }
+    public override void Update(Enemy em)
+    {
+
+    }
+    public override void FixedUpdate(Enemy em)
+    {
+
+    }
+    public override void ExitState(Enemy em)
+    {
+
+    }
+}
+
+public class SwordManAttackState : EnemyAttackState
+{
+    public override void EnterState(Enemy em)
+    {
+        em.statevisualizer = Enemy.enemyStates.Attack;
+    }
+    public override void Update(Enemy em)
+    {
+
+    }
+    public override void FixedUpdate(Enemy em)
+    {
+
+    }
+    public override void ExitState(Enemy em)
+    {
+
+    }
+}
+#endregion

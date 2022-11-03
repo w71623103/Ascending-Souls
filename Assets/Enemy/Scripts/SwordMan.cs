@@ -7,10 +7,14 @@ public class SwordMan : Enemy
     // Start is called before the first frame update
     void Start()
     {
+        //States
         idleState = new SwordManIdleState();
         hurtState = new SwordManHurtState();
-
+        attackState = new SwordManAttackState();
+        patrolState = new SwordManPatrolState();
+        chaseState = new SwordManChaseState();
         groundMask = LayerMask.GetMask("Ground");
+        playerMask = LayerMask.GetMask("PlayerCol");
 
         enemyRB = GetComponent<Rigidbody2D>();
         enemyAnim = GetComponent<Animator>();
@@ -26,6 +30,7 @@ public class SwordMan : Enemy
         generalState.Update(this);
         flip();
         checkGround();
+        checkPlayer();
     }
 
     public override void OnHit(Vector2 hitBackDir, float hitBackSpeed, Weapons.PushType pushtype)
@@ -55,7 +60,9 @@ public class SwordMan : Enemy
         soundM.playHit();
         //shader flash
         HitFlash();
-        //Instantiate(blood,transform.position, Quaternion.identity);
+        //Instantiate(blood,transform.position, Quaternion.identity)
+
+        //
         if (allowHitRecover)
         {
             ChangeState(hurtState);

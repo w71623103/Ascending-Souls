@@ -75,7 +75,7 @@ public class PlayerGrappleModel
     public float reachTolerance;
     public float directionChangeTolerance;
     public float grappleJumpSpeed;
-
+    public float grappleJumpEndSpeed;
     public float grapplePointExcludeCD;
     public GrappleArea GrappleSensor;
     public LineRenderer playerLine;

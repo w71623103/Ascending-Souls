@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     {
         move,
         jump,
+        gJump,
         dash,
         slide,
         wallJump,
@@ -21,6 +22,7 @@ public class PlayerController : MonoBehaviour
 
     public PlayerMoveModel moveModel = new PlayerMoveModel();
     public PlayerJumpModel jumpModel = new PlayerJumpModel();
+    public PlayerGrappleJumpState grappleJumpState = new PlayerGrappleJumpState();
     public PlayerDashModel dashModel = new PlayerDashModel();
     public PlayerSlideModel slideModel = new PlayerSlideModel();
     public PlayerGrappleModel grappleModel = new PlayerGrappleModel();
@@ -257,20 +259,17 @@ public class PlayerController : MonoBehaviour
 
     void OnAttack() 
     {
-        if (jumpModel.isGrounded)
+        if (moveModel.VerticalMovement > 0)
+        {
+            if (attackModel.attackTimer <= 0f && generalState != attackState && generalState != dashState && generalState != attackStateSP && generalState != attackStateUp/*&& generalState != hurtState*/)
+                ChangeState(attackStateUp);
+        }
+        else if (jumpModel.isGrounded)
         {
             if (generalState != attackState && generalState != dashState && generalState != attackStateSP && generalState != attackStateUp/*&& generalState != hurtState*/)
             {
-                if (moveModel.VerticalMovement > 0)
-                {
-                    if (attackModel.attackTimer <= 0f)
-                        ChangeState(attackStateUp);
-                }
-                else
-                {
-                    if (attackModel.attackTimer <= 0f)
-                        ChangeState(attackState);
-                }
+                if (attackModel.attackTimer <= 0f)
+                    ChangeState(attackState);
             }
             else
             {
@@ -407,7 +406,7 @@ public class PlayerController : MonoBehaviour
             attackModel.airAttackCount = attackModel.airAttackCountMax;
             ChangeState(slideState);
         }
-        else if (hit.collider == null && generalState != jumpState && generalState != dashState && generalState != wallJumpState && generalState != attackState && generalState != grappleState && generalState != attackStateSP)
+        else if (hit.collider == null && generalState != jumpState && generalState != dashState && generalState != wallJumpState && generalState != attackState && generalState != grappleState && generalState != attackStateSP && generalState != grappleJumpState)
         {
             ChangeState(moveState);
         }
