@@ -264,7 +264,7 @@ public class SwordManAttackSPState : SwordManStateBase
 {
     public override void EnterState(SwordMan em)
     {
-        em.allowHitRecover = false;
+        //em.allowHitRecover = false;
         em.statevisualizer = Enemy.enemyStates.Attack;
         em.enemyAnim.Play("AttackSP");
         em.attackModel.attackSPHate = 0f;
@@ -291,7 +291,7 @@ public class SwordManAttackSPState : SwordManStateBase
     }
     public override void ExitState(SwordMan em)
     {
-        em.allowHitRecover = true;
+        //em.allowHitRecover = true;
     }
 }
 #endregion

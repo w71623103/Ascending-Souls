@@ -274,16 +274,9 @@ public class PlayerController : MonoBehaviour
             {
                 if (attackModel.allowInput && generalState != attackStateSP && generalState != attackStateUp)
                 {
-/*                    if (moveModel.VerticalMovement > 0)
-                    {
-                        ChangeState(attackStateUp);
-                    }
-                    else
-                    {*/
-                        attackModel.allowInput = false;
-                        attackModel.comboed = true;
-                        nextCombo();
-                    /*}*/
+                    attackModel.allowInput = false;
+                    attackModel.comboed = true;
+                    nextCombo();
                 }
             }
         }
