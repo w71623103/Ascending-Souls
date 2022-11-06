@@ -46,6 +46,7 @@ public class PlayerJumpState : PlayerState
     }
     public override void Update(PlayerController pl)
     {
+        pl.checkEnemy();
         if (pl.jumpModel.isGrounded && Mathf.Abs(pl.playerRB.velocity.y) < 0.1f) pl.ChangeState(pl.moveState);
     }
     public override void FixedUpdate(PlayerController pl)
@@ -65,6 +66,7 @@ public class PlayerGrappleJumpState : PlayerState
         /*if(!pl.slideModel.wallJumped)
             pl.jumpModel.jumpCount -= 1;*/
         pl.statevisualizer = PlayerController.state.gJump;
+        pl.gameObject.layer = 7;
     }
     public override void Update(PlayerController pl)
     {
@@ -77,14 +79,17 @@ public class PlayerGrappleJumpState : PlayerState
     public override void ExitState(PlayerController pl)
     {
         //pl.jumpModel.jumpCount = pl.jumpModel.jumpCountMax;
+        pl.gameObject.layer = 6;
     }
 }
 
 public class PlayerDashState : PlayerState
 {
     private int dashTriggerHash = Animator.StringToHash("dashTrigger");
+    private float timer;
     public override void EnterState(PlayerController pl)
     {
+        timer = 0f;
         //Play Animation
         pl.playerAnim.SetTrigger(dashTriggerHash);
         pl.statevisualizer = PlayerController.state.dash;
@@ -98,20 +103,42 @@ public class PlayerDashState : PlayerState
                 pl.attackModel.airAttackCount++;
         }
         Physics2D.IgnoreLayerCollision(6, 14, true);
+        Physics2D.IgnoreLayerCollision(6, 16, true);
+        Physics2D.IgnoreLayerCollision(7, 16, true);
     }
     public override void Update(PlayerController pl)
     {
-
+        timer += Time.deltaTime;
+        if(timer > 3f)
+            pl.ChangeState(pl.moveState);
+        /*int currentLayer = 0;
+        switch(pl.weaponModel.currentWeapon.type)
+        {
+            case Weapons.WeaponType.BareHand:
+                currentLayer = 1;
+                break;
+            case Weapons.WeaponType.Sword:
+                currentLayer = 2;
+                break;
+            case Weapons.WeaponType.Colossal:
+                currentLayer = 3;
+                break;
+        }
+        if (pl.playerAnim.GetCurrentAnimatorStateInfo(currentLayer).normalizedTime > .95f)
+            pl.ChangeState(pl.moveState);*/
     }
     public override void FixedUpdate(PlayerController pl)
     {
-        pl.playerRB.velocity = new Vector2(pl.dashModel.dashSpeed, 0) * (int)pl.moveModel.Direction;
+        pl.playerRB.velocity = new Vector2(pl.dashModel.dashSpeed, pl.playerRB.velocity.y) * (int)pl.moveModel.Direction;
     }
     public override void ExitState(PlayerController pl)
     {
+        timer = 0f;
         pl.playerRB.velocity = Vector2.zero;
         pl.playerRB.gravityScale = 3f;
         Physics2D.IgnoreLayerCollision(6, 14, false);
+        Physics2D.IgnoreLayerCollision(6, 16, false);
+        Physics2D.IgnoreLayerCollision(7, 16, false);
     }
 }
 
@@ -318,3 +345,42 @@ public class PlayerGrappleState : PlayerState
     }
 }
 
+public class PlayerHurtState : PlayerState
+{
+    public override void EnterState(PlayerController pl)
+    {
+        pl.statevisualizer = PlayerController.state.hurt;
+        pl.playerAnim.SetTrigger("isHurt");
+    }
+    public override void Update(PlayerController pl)
+    {
+        int currentLayer = 0;
+        switch (pl.weaponModel.currentWeapon.type)
+        {
+            case Weapons.WeaponType.BareHand:
+                currentLayer = 1;
+                break;
+            case Weapons.WeaponType.Sword:
+                currentLayer = 2;
+                break;
+            case Weapons.WeaponType.Colossal:
+                currentLayer = 3;
+                break;
+        }
+        if (pl.playerAnim.GetCurrentAnimatorStateInfo(currentLayer).normalizedTime > .95f)
+        { 
+            if(pl.jumpModel.isGrounded)
+                pl.ChangeState(pl.moveState); 
+            else
+                pl.ChangeState(pl.jumpState);
+        }
+    }
+    public override void FixedUpdate(PlayerController pl)
+    {
+
+    }
+    public override void ExitState(PlayerController pl)
+    {
+
+    }
+}

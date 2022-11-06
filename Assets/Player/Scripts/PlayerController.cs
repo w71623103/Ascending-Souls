@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
         grapple,
         attackSP,
         attackUP,
+        hurt,
     }
     public state statevisualizer;
 
@@ -29,6 +30,7 @@ public class PlayerController : MonoBehaviour
     public PlayerAttackModel attackModel = new PlayerAttackModel();
     public PlayerWeaponModel weaponModel = new PlayerWeaponModel();
     public PlayerInteractModel interactModel = new PlayerInteractModel();
+    public PlayerHurtModel hurtModel = new PlayerHurtModel();
 
     public PlayerState generalState;
     public PlayerMoveState moveState = new PlayerMoveState();
@@ -40,10 +42,13 @@ public class PlayerController : MonoBehaviour
     public PlayerAttackState attackState = new PlayerAttackState();
     public PlayerAttackSPState attackStateSP = new PlayerAttackSPState();
     public PlayerAttackUPState attackStateUp = new PlayerAttackUPState();
+    public PlayerHurtState hurtState = new PlayerHurtState();
 
     [Header("Components")]
     public Rigidbody2D playerRB;
     public Animator playerAnim;
+    public SpriteRenderer playerSP;
+    public SoundManager_Player soundM;
 
     private int groundHash;
     private int jumpVelHash;
@@ -78,6 +83,7 @@ public class PlayerController : MonoBehaviour
 
         playerRB = GetComponent<Rigidbody2D>();
         playerAnim = GetComponent<Animator>();
+        playerSP = GetComponent<SpriteRenderer>();
         grappleModel.playerLine = GetComponent<LineRenderer>();
         grappleModel.playerLine.enabled = false;
         grappleModel.playerLine.SetPosition(0, transform.position);
@@ -110,7 +116,8 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            gameObject.layer = 6;
+            if(generalState != grappleJumpState)
+                gameObject.layer = 6;
         }
 
         if (generalState != attackStateSP)
@@ -160,7 +167,7 @@ public class PlayerController : MonoBehaviour
 
     void OnJump()
     {
-        if(generalState != jumpState && jumpModel.jumpCount > 0 && generalState != slideState && generalState != wallJumpState && generalState != attackStateSP)
+        if(generalState != jumpState && jumpModel.jumpCount > 0 && generalState != slideState && generalState != wallJumpState && generalState != attackStateSP && generalState != hurtState)
         {
             gameObject.layer = 6;
             if (moveModel.VerticalMovement >= 0f)
@@ -206,7 +213,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
     void OnDash()
     {
         if(generalState != dashState && dashModel.allowDash && generalState != slideState && generalState != attackStateSP)
@@ -224,18 +230,10 @@ public class PlayerController : MonoBehaviour
     {
         if (/*jumpModel.isGrounded*/true)
         {
-            if (generalState != attackStateSP && generalState != dashState && generalState != wallJumpState && generalState != grappleState && generalState != slideState /*&& generalState != hurtState*/)
+            if (generalState != attackStateSP && generalState != dashState && generalState != wallJumpState && generalState != grappleState && generalState != slideState)
             {
                 if (weaponModel.currentWeapon.type != Weapons.WeaponType.BareHand)
                 {
-                    /*switch(weaponModel.currentWeapon.type)
-                    {
-                        case Weapons.WeaponType.Sword:
-                            Instantiate(weaponModel.swordPick,transform.position,Quaternion.identity);
-                            break;
-                        default:
-                            break;
-                    }*/
                     attackModel.allowInput = false;
                     weaponModel.nextWeapon = weaponModel.bareHand;
                     ChangeState(attackStateSP);
@@ -246,14 +244,11 @@ public class PlayerController : MonoBehaviour
 
     public void pickWeapon(Weapons newWeapon)
     {
-        if (/*jumpModel.isGrounded*/true)
+        if (generalState != attackStateSP && generalState != attackState && generalState != dashState && generalState != wallJumpState && generalState != grappleState && generalState != slideState && generalState != hurtState)
         {
-            if (generalState != attackStateSP && generalState != attackState && generalState != dashState && generalState != wallJumpState && generalState != grappleState && generalState != slideState/*&& generalState != hurtState*/)
-            {
-                attackModel.allowInput = false;
-                weaponModel.nextWeapon = newWeapon;
-                ChangeState(attackStateSP);
-            }
+            attackModel.allowInput = false;
+            weaponModel.nextWeapon = newWeapon;
+            ChangeState(attackStateSP);
         }
     }
 
@@ -261,30 +256,34 @@ public class PlayerController : MonoBehaviour
     {
         if (moveModel.VerticalMovement > 0)
         {
-            if (attackModel.attackTimer <= 0f && generalState != attackState && generalState != dashState && generalState != attackStateSP && generalState != attackStateUp/*&& generalState != hurtState*/)
+            if (attackModel.attackTimer <= 0f && generalState != attackState && generalState != dashState && generalState != attackStateSP && generalState != attackStateUp && generalState != hurtState)
                 ChangeState(attackStateUp);
+            else if (attackModel.allowInput && generalState != attackStateSP && generalState != attackStateUp)
+            {
+                ChangeState(attackStateUp);
+            }
         }
         else if (jumpModel.isGrounded)
         {
-            if (generalState != attackState && generalState != dashState && generalState != attackStateSP && generalState != attackStateUp/*&& generalState != hurtState*/)
+            if (generalState != attackState && generalState != dashState && generalState != attackStateSP && generalState != attackStateUp && generalState != hurtState)
             {
                 if (attackModel.attackTimer <= 0f)
                     ChangeState(attackState);
             }
             else
             {
-                if (attackModel.allowInput && generalState != attackStateSP && generalState != attackStateUp/* && stemina > 0*/)
+                if (attackModel.allowInput && generalState != attackStateSP && generalState != attackStateUp)
                 {
-                    if (moveModel.VerticalMovement > 0)
+/*                    if (moveModel.VerticalMovement > 0)
                     {
                         ChangeState(attackStateUp);
                     }
                     else
-                    {
+                    {*/
                         attackModel.allowInput = false;
                         attackModel.comboed = true;
                         nextCombo();
-                    }
+                    /*}*/
                 }
             }
         }
@@ -292,14 +291,14 @@ public class PlayerController : MonoBehaviour
         {
             if(attackModel.airAttackCount > 0)
             {
-                if (generalState != attackState && generalState != dashState /*&& generalState != hurtState*/)
+                if (generalState != attackState && generalState != dashState && generalState != hurtState)
                 {
-                    if (attackModel.attackTimer <= 0f/* && stemina > 0*/)
+                    if (attackModel.attackTimer <= 0f)
                         ChangeState(attackState);
                 }
                 else
                 {
-                    if (attackModel.allowInput/* && stemina > 0*/)
+                    if (attackModel.allowInput)
                     {
                         attackModel.allowInput = false;
                         attackModel.comboed = true;
@@ -336,7 +335,7 @@ public class PlayerController : MonoBehaviour
 
     void OnInteract()
     {
-        if (generalState != attackStateSP && generalState != attackState && generalState != dashState && generalState != wallJumpState && generalState != grappleState && generalState != slideState/*&& generalState != hurtState*/)
+        if (generalState != attackStateSP && generalState != attackState && generalState != dashState && generalState != wallJumpState && generalState != grappleState && generalState != slideState && generalState != hurtState)
         {
             RaycastHit2D hit = Physics2D.BoxCast(transform.position, interactModel.interactBoxSize, 0f, Vector2.zero, Mathf.Infinity, LayerMask.GetMask("Interactable"));
             if (hit.collider != null)
@@ -371,7 +370,7 @@ public class PlayerController : MonoBehaviour
             attackModel.airAttackCount = attackModel.airAttackCountMax;
             if (generalState != attackState) attackModel.attackCount = 0;
             if(playerRB.gravityScale != slideModel.normalGravity) playerRB.gravityScale = slideModel.normalGravity;
-            if (playerRB.velocity.y < 0f && generalState != dashState && generalState != moveState && generalState != attackState && generalState != grappleState && generalState != attackStateSP)
+            if (playerRB.velocity.y < 0f && generalState != dashState && generalState != moveState && generalState != attackState && generalState != grappleState && generalState != attackStateSP && generalState != hurtState)
             { 
                 ChangeState(moveState);
                 jumpModel.jumpCount = jumpModel.jumpCountMax;
@@ -393,6 +392,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void checkEnemy()
+    {
+        RaycastHit2D hitJump = Physics2D.Raycast(transform.position + moveModel.groundSensor.transform.localPosition, Vector2.down, groundHitDis, LayerMask.GetMask("Enemy"));
+        if (hitJump.collider != null)
+        {
+            Physics2D.IgnoreLayerCollision(6, 14, true);
+        }
+        else
+        {
+            Physics2D.IgnoreLayerCollision(6, 14, false);
+        }
+    }
+
     void checkSlide()
     {
         Vector3 HitSlideStart = transform.position +
@@ -406,7 +418,7 @@ public class PlayerController : MonoBehaviour
             attackModel.airAttackCount = attackModel.airAttackCountMax;
             ChangeState(slideState);
         }
-        else if (hit.collider == null && generalState != jumpState && generalState != dashState && generalState != wallJumpState && generalState != attackState && generalState != grappleState && generalState != attackStateSP && generalState != grappleJumpState)
+        else if (hit.collider == null && generalState != jumpState && generalState != dashState && generalState != wallJumpState && generalState != attackState && generalState != grappleState && generalState != attackStateSP && generalState != grappleJumpState && generalState != hurtState)
         {
             ChangeState(moveState);
         }
@@ -417,5 +429,47 @@ public class PlayerController : MonoBehaviour
         point.SetActive(false);
         yield return new WaitForSecondsRealtime(grappleModel.grapplePointExcludeCD);
         point.SetActive(true);
+    }
+
+    public void OnHit(Vector2 hitBackDir, float hitBackSpeed, Weapons.PushType pushtype)
+    {
+        switch (pushtype)
+        {
+            case Weapons.PushType.pushBack:
+                playerRB.gravityScale = 3f;
+                playerRB.velocity = hitBackDir * hitBackSpeed;
+                break;
+            case Weapons.PushType.upKa:
+                playerRB.gravityScale = 2f;
+                playerRB.velocity = hitBackDir * hitBackSpeed;
+                break;
+            case Weapons.PushType.quickFall:
+                playerRB.gravityScale = 10f;
+                break;
+            case Weapons.PushType.inPlace:
+                playerRB.gravityScale = 0f;
+                playerRB.velocity = Vector2.zero;
+                //enemyRB.velocity = new Vector2(0f, hitBackDir.y * hitBackSpeed);
+                break;
+        }
+
+        //play sound
+        soundM.playHit();
+        //shader flash
+        HitFlash();
+        if(generalState != dashState)
+            ChangeState(hurtState);
+    }
+
+    public void HitFlash()
+    {
+        StartCoroutine(HitFlashIE(hurtModel.flashTime));
+    }
+
+    IEnumerator HitFlashIE(float duration)
+    {
+        playerSP.material.SetInt("_Hit", 1);
+        yield return new WaitForSeconds(duration);
+        playerSP.material.SetInt("_Hit", 0);
     }
 }

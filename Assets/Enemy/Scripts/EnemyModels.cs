@@ -36,3 +36,22 @@ public class EnemyPatrolModel
     public float patrolSpeed;
     public float patrolTolerance = 0.5f;
 }
+
+[System.Serializable]
+public class EnemyChaseModel
+{
+    public float chaseSpeed;
+    public Transform[] chaseRange;
+}
+
+[System.Serializable]
+public class EnemyAttackModel
+{
+    public Transform attackPointNormal;
+    public Transform attackPointSP;
+    public float attackNormalRange;
+    public float attackSPRange;
+    public float attackSPHate = 0f;
+    public float attackSPHateGate;
+
+}

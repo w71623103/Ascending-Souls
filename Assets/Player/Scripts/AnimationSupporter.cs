@@ -26,10 +26,20 @@ public class AnimationSupporter : MonoBehaviour
         }
     }
 
+    public void EndHurt()
+    {
+        if (pl.generalState == pl.hurtState) pl.ChangeState(pl.moveState);
+    }
+
     public void allowInput()
     {
         pl.attackModel.allowInput = true;
         pl.attackModel.comboed = false;
+    }
+
+    public void allowDash()
+    {
+        pl.dashModel.allowDash = true;
     }
 
     public void endAttack()

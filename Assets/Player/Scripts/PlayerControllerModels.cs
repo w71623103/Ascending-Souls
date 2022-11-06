@@ -102,3 +102,8 @@ public class PlayerInteractModel
     public Vector2 interactBoxSize;
 }
 
+[System.Serializable]
+public class PlayerHurtModel
+{
+    public float flashTime;
+}
