@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyHp : Hp
+public class EnemyHpTest : Hp
 {
     [SerializeField] private float percent;
     [SerializeField] private List<GameObject> dropWeaponList = new List<GameObject>();
     [SerializeField] private List<float> dropWeaponKey = new List<float>();
     [SerializeField] private GameObject dropOBJ = null;
     [SerializeField] private GameObject HpBar;
+
     // Update is called once per frame
     void Update()
     {
@@ -43,13 +44,6 @@ public class EnemyHp : Hp
             Instantiate(dropOBJ, transform.position, Quaternion.identity);
         //gameObject.SetActive(false);
         Debug.Log(transform.name + " is dead.");
-        //hp = mHp;
-        if (GetComponent<Animator>() != null)
-            GetComponent<Animator>().SetBool("isDead", true);
-    }
-
-    private void endDie()
-    {
-        gameObject.SetActive(false);
+        hp = mHp;
     }
 }

@@ -4,13 +4,42 @@ using UnityEngine;
 
 public class SwordMan : Enemy
 {
+    #region FSM
+    public SwordManStateBase generalState;
+    public SwordManIdleState idleState = new SwordManIdleState();
+    public SwordManHurtState hurtState = new SwordManHurtState();
+    public SwordManAttackState attackState = new SwordManAttackState();
+    public SwordManAttackSPState attackStateSP = new SwordManAttackSPState();
+    public SwordManPatrolState patrolState = new SwordManPatrolState();
+    public SwordManChaseState chaseState = new SwordManChaseState();
+
+    public void ChangeState(SwordManStateBase newState)
+    {
+        if (generalState != null)
+        {
+            generalState.ExitState(this);
+        }
+        generalState = newState;
+        if (generalState != null)
+        {
+            generalState.EnterState(this);
+        }
+    }
+    #endregion
+    #region Models
+    public EnemyMoveModel moveModel = new EnemyMoveModel();
+    public EnemyIdleModel idleModel = new EnemyIdleModel();
+    public EnemyPatrolModel patrolModel = new EnemyPatrolModel();
+    public EnemyAttackModel attackModel = new EnemyAttackModel();
+    public EnemyChaseModel chaseModel = new EnemyChaseModel();
+    #endregion
+
+    [SerializeField] private GameObject hateBar;
     // Start is called before the first frame update
     void Start()
     {
-        idleState = new SwordManIdleState();
-        hurtState = new SwordManHurtState();
-
         groundMask = LayerMask.GetMask("Ground");
+        playerMask = LayerMask.GetMask("PlayerCol");
 
         enemyRB = GetComponent<Rigidbody2D>();
         enemyAnim = GetComponent<Animator>();
@@ -23,9 +52,16 @@ public class SwordMan : Enemy
 
     private void Update()
     {
+        testUI();
         generalState.Update(this);
         flip();
         checkGround();
+        checkPlayer();
+    }
+
+    private void FixedUpdate()
+    {
+        generalState.FixedUpdate(this);
     }
 
     public override void OnHit(Vector2 hitBackDir, float hitBackSpeed, Weapons.PushType pushtype)
@@ -55,12 +91,68 @@ public class SwordMan : Enemy
         soundM.playHit();
         //shader flash
         HitFlash();
-        //Instantiate(blood,transform.position, Quaternion.identity);
+        //Instantiate(blood,transform.position, Quaternion.identity)
+
+        //
         if (allowHitRecover)
         {
             ChangeState(hurtState);
         }
     }
 
-    
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawRay(eyePos.position, new Vector3((int)moveModel.Direction, 0, 0));
+        Gizmos.DrawWireSphere(attackModel.attackPointNormal.position, attackModel.attackNormalRange);
+        Gizmos.DrawWireSphere(attackModel.attackPointSP.position, attackModel.attackSPRange);
+    }
+
+    private void testUI()
+    {
+        if(hateBar != null && attackModel.attackSPHate <= attackModel.attackSPHateGate)
+            hateBar.transform.localScale = new Vector3(1, attackModel.attackSPHate/attackModel.attackSPHateGate,1);
+        else if(hateBar != null && attackModel.attackSPHate > attackModel.attackSPHateGate)
+            hateBar.transform.localScale = new Vector3(1, 1, 1);
+    }
+
+    protected override void flip()
+    {
+        transform.localScale = new Vector3((float)moveModel.Direction, transform.localScale.y, transform.localScale.z);
+    }
+
+    protected override void checkGround()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(groundSensorStartPos.position, Vector2.down, groundHitDis, groundMask);
+        Debug.DrawRay(groundSensorStartPos.position, Vector2.down, Color.white);
+        if (hit.collider != null)
+        {
+            moveModel.isGrounded = true;
+        }
+        else
+        {
+            moveModel.isGrounded = false;
+        }
+    }
+
+    protected override void checkPlayer()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(eyePos.position, new Vector2((int)moveModel.Direction, 0), sightDis, playerMask);
+        Debug.DrawRay(eyePos.position, new Vector2((int)moveModel.Direction, 0), Color.red);
+        if (hit.collider != null)
+        {
+            target = hit.collider.gameObject;
+        }
+        else
+        {
+            target = null;
+        }
+    }
+
+    public override void turn()
+    {
+        if ((int)moveModel.Direction == 1)
+            moveModel.Direction = EnemyMoveModel.EnemyDirection.Left;
+        else
+            moveModel.Direction = EnemyMoveModel.EnemyDirection.Right;
+    }
 }

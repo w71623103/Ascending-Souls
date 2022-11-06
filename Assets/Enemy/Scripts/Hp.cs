@@ -12,6 +12,12 @@ public abstract class Hp : MonoBehaviour
         twice,
         dot,
     }
+
+    protected void OnEnable()
+    {
+        hp = mHp;
+    }
+
     // Start is called before the first frame update
     protected void Start()
     {

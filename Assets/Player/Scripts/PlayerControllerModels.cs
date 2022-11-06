@@ -75,7 +75,7 @@ public class PlayerGrappleModel
     public float reachTolerance;
     public float directionChangeTolerance;
     public float grappleJumpSpeed;
-
+    public float grappleJumpEndSpeed;
     public float grapplePointExcludeCD;
     public GrappleArea GrappleSensor;
     public LineRenderer playerLine;
@@ -102,3 +102,8 @@ public class PlayerInteractModel
     public Vector2 interactBoxSize;
 }
 
+[System.Serializable]
+public class PlayerHurtModel
+{
+    public float flashTime;
+}
