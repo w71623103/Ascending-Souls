@@ -34,7 +34,7 @@ public class SoundManager_Player : MonoBehaviour
 
     public void playJump(int i)
     {
-        audioSource.volume = 1;
+        audioSource.volume = 0.5f;
         audioSource.PlayOneShot(JumpSound[i - 1]);
     }
 

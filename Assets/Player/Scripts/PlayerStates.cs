@@ -109,7 +109,7 @@ public class PlayerDashState : PlayerState
     public override void Update(PlayerController pl)
     {
         timer += Time.deltaTime;
-        if(timer > 3f)
+        if(timer > .5f)
             pl.ChangeState(pl.moveState);
         /*int currentLayer = 0;
         switch(pl.weaponModel.currentWeapon.type)
@@ -300,6 +300,33 @@ public class PlayerAttackUPState : PlayerState
     }
 }
 
+public class PlayerAttackDownState : PlayerState
+{
+    public override void EnterState(PlayerController pl)
+    {
+        pl.statevisualizer = PlayerController.state.attackUP;
+        // start attack
+        pl.playerAnim.SetTrigger("AttackDown");
+        pl.attackModel.allowInput = false;
+    }
+
+    public override void Update(PlayerController pl)
+    { }
+
+    public override void FixedUpdate(PlayerController pl)
+    {
+        pl.playerRB.velocity = new Vector2(pl.playerRB.velocity.x, 0f);
+    }
+
+    public override void ExitState(PlayerController pl)
+    {
+        pl.playerAnim.SetInteger("AttackLight", 0);
+        if (pl.jumpModel.isGrounded) pl.attackModel.attackCount = 0;
+        pl.attackModel.attackTimer = pl.attackModel.attackTimerMax;
+    }
+}
+
+
 public class PlayerGrappleState : PlayerState
 {
     private Vector3 GrappleDirection;
@@ -381,6 +408,9 @@ public class PlayerHurtState : PlayerState
     }
     public override void ExitState(PlayerController pl)
     {
-
+        if(pl.weaponModel.nextWeapon != null)
+        {
+            pl.GetComponent<AnimationSupporter>().switchWeapon();
+        }
     }
 }

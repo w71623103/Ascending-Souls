@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -951918676, guid: d7d270c93ae06bc4fa79c65618593ecd, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -265,7 +265,7 @@ MonoBehaviour:
   myHp: {fileID: 0}
   allowHitRecover: 1
   hitDir: {x: 0, y: 0}
-  flashTime: 0.01
+  flashTime: 0.1
   groundSensorStartPos: {fileID: 2393206259650600828}
   groundHitDis: 1
   eyePos: {fileID: 9117189643178086651}
@@ -310,7 +310,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 0
-  mHp: 80
+  mHp: 240
   percent: 0
   dropWeaponList:
   - {fileID: 2288488194143249872, guid: 5f338bcd3783d8c40b6795ed6bd33652, type: 3}
@@ -375,7 +375,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -825759835
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 4723107735738678597, guid: 83f67ae1c8fabe940b535c752e64a1c8,
     type: 3}
@@ -729,7 +729,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -825759835
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 10
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b,
     type: 3}

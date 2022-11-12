@@ -35,7 +35,7 @@ public class EnemyAttackCol : MonoBehaviour
             //take damage
             collision.gameObject.GetComponent<Hp>().decreaseHP(damage);
         }
-        PlayerJuice.Instance.HitPause(hitPauseTime);
+        //PlayerJuice.Instance.HitPause(hitPauseTime);
     }
 
 

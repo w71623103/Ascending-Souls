@@ -68,6 +68,9 @@ public abstract class Enemy : MonoBehaviour
     IEnumerator HitFlashIE(float duration)
     {
         enemySP.material.SetInt("_Hit", 1);
+        enemySP.material.SetInt("_HitBlack", 1);
+        yield return new WaitForSeconds(duration*0.1f);
+        enemySP.material.SetInt("_HitBlack", 0);
         yield return new WaitForSeconds(duration);
         enemySP.material.SetInt("_Hit", 0);
     }

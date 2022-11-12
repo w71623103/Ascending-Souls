@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -43,12 +44,14 @@ public class PlayerController : MonoBehaviour
     public PlayerAttackSPState attackStateSP = new PlayerAttackSPState();
     public PlayerAttackUPState attackStateUp = new PlayerAttackUPState();
     public PlayerHurtState hurtState = new PlayerHurtState();
+    public PlayerAttackDownState attackStateDown = new PlayerAttackDownState();
 
     [Header("Components")]
     public Rigidbody2D playerRB;
     public Animator playerAnim;
     public SpriteRenderer playerSP;
     public SoundManager_Player soundM;
+    public GameObject ammoBar;
 
     private int groundHash;
     private int jumpVelHash;
@@ -80,11 +83,11 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         statevisualizer = state.move;
-
+        weaponModel.ammo = weaponModel.ammoMax;
         playerRB = GetComponent<Rigidbody2D>();
         playerAnim = GetComponent<Animator>();
         playerSP = GetComponent<SpriteRenderer>();
-        grappleModel.playerLine = GetComponent<LineRenderer>();
+        //grappleModel.playerLine = GetComponent<LineRenderer>();
         grappleModel.playerLine.enabled = false;
         grappleModel.playerLine.SetPosition(0, transform.position);
 
@@ -103,6 +106,9 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        weaponModel.percent = weaponModel.ammo / weaponModel.ammoMax;
+        weaponModel.WeaponUI.GetComponent<UnityEngine.UI.Image>().sprite = weaponModel.currentWeapon.icon;
+        ammoBar.transform.localScale = new Vector3(weaponModel.percent, 1, 1);
         playerAnim.SetBool(groundHash, jumpModel.isGrounded);
         playerAnim.SetFloat(jumpVelHash, playerRB.velocity.y);
         generalState.Update(this);
@@ -263,6 +269,25 @@ public class PlayerController : MonoBehaviour
                 ChangeState(attackStateUp);
             }
         }
+        else if(moveModel.VerticalMovement < 0)
+        {
+            if (attackModel.attackTimer <= 0f && generalState != attackState && generalState != dashState && generalState != attackStateSP && generalState != attackStateUp && generalState != hurtState)
+            {
+                if (weaponModel.currentWeapon.type != Weapons.WeaponType.BareHand)
+                {
+                    weaponModel.nextWeapon = weaponModel.bareHand;
+                    ChangeState(attackStateDown);
+                }
+            }
+            else if (attackModel.allowInput && generalState != attackStateSP && generalState != attackStateUp)
+            {
+                if (weaponModel.currentWeapon.type != Weapons.WeaponType.BareHand)
+                {
+                    weaponModel.nextWeapon = weaponModel.bareHand;
+                    ChangeState(attackStateDown);
+                }
+            }
+        }
         else if (jumpModel.isGrounded)
         {
             if (generalState != attackState && generalState != dashState && generalState != attackStateSP && generalState != attackStateUp && generalState != hurtState)
@@ -315,14 +340,17 @@ public class PlayerController : MonoBehaviour
 
     void OnGrapple()
     {
-        Vector3 grappleDir = (grappleModel.point.transform.position - transform.position).normalized;
-        float length = Vector3.Distance(transform.position, grappleModel.point.transform.position);
-        RaycastHit2D hitGround = Physics2D.Raycast(transform.position, grappleDir, length, groundMask);
-        if (hitGround.collider == null && generalState != dashState && grappleModel.point.activeSelf)
+        if(generalState != attackState && generalState != dashState && generalState != hurtState && generalState != attackStateSP && generalState != attackStateUp)
         {
-            GameObject target = grappleModel.GrappleSensor.closestGrapplePoint;
-            if(target != null) StartCoroutine(disableGrapplePoint(target));
-            ChangeState(grappleState);
+            Vector3 grappleDir = (grappleModel.point.transform.position - transform.position).normalized;
+            float length = Vector3.Distance(transform.position, grappleModel.point.transform.position);
+            RaycastHit2D hitGround = Physics2D.Raycast(transform.position, grappleDir, length, groundMask);
+            if (hitGround.collider == null && generalState != dashState && grappleModel.point.activeSelf)
+            {
+                GameObject target = grappleModel.GrappleSensor.closestGrapplePoint;
+                if (target != null) StartCoroutine(disableGrapplePoint(target));
+                ChangeState(grappleState);
+            }
         }
     }
 
@@ -406,7 +434,7 @@ public class PlayerController : MonoBehaviour
             0);
         RaycastHit2D hit = Physics2D.Raycast(HitSlideStart,
             new Vector2((int)moveModel.Direction, 0), slideHitDis, groundMask);
-        if (hit.collider != null && hit.collider.CompareTag("Slidable") && slideModel.canSlide && slideModel.slidingCancelTimer <= 0f && generalState != slideState)
+        if (hit.collider != null && hit.collider.CompareTag("Slidable") && slideModel.canSlide && slideModel.slidingCancelTimer <= 0f && generalState != slideState && generalState != attackStateSP)
         {
             attackModel.airAttackCount = attackModel.airAttackCountMax;
             ChangeState(slideState);
@@ -450,7 +478,7 @@ public class PlayerController : MonoBehaviour
         soundM.playHit();
         //shader flash
         HitFlash();
-        if(generalState != dashState)
+        if(generalState != dashState && generalState != attackStateSP)
             ChangeState(hurtState);
     }
 
@@ -462,6 +490,9 @@ public class PlayerController : MonoBehaviour
     IEnumerator HitFlashIE(float duration)
     {
         playerSP.material.SetInt("_Hit", 1);
+        playerSP.material.SetInt("_HitBlack", 1);
+        yield return new WaitForSeconds(duration * 0.5f);
+        playerSP.material.SetInt("_HitBlack", 0);
         yield return new WaitForSeconds(duration);
         playerSP.material.SetInt("_Hit", 0);
     }

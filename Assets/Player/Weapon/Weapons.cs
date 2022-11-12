@@ -24,4 +24,6 @@ public class Weapons : ScriptableObject
     }
 
     public WeaponType type;
+    public float ammoConsume;
+    public Sprite icon;
 }

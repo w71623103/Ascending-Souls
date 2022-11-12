@@ -67,16 +67,19 @@ public class AnimationSupporter : MonoBehaviour
 
     public void switchWeapon()
     {
+        GameObject weaponDrop;
         //switch layer
         if (pl.weaponModel.nextWeapon != null)
         {
             switch (pl.weaponModel.currentWeapon.type)
             {
                 case Weapons.WeaponType.Sword:
-                    Instantiate(pl.weaponModel.swordPick, transform.position, Quaternion.identity);
+                    weaponDrop = Instantiate(pl.weaponModel.swordPick, transform.position, Quaternion.identity);
+                    weaponDrop.GetComponent<WeaponPick>().ammoInThis = pl.weaponModel.ammo;
                     break;
                 case Weapons.WeaponType.GreatSword:
-                    Instantiate(pl.weaponModel.greatSwordPick, transform.position, Quaternion.identity);
+                    weaponDrop = Instantiate(pl.weaponModel.greatSwordPick, transform.position, Quaternion.identity);
+                    weaponDrop.GetComponent<WeaponPick>().ammoInThis = pl.weaponModel.ammo;
                     break;
             }
             switch (pl.weaponModel.nextWeapon.type)
@@ -100,8 +103,14 @@ public class AnimationSupporter : MonoBehaviour
             //set trigger
             pl.playerAnim.SetTrigger("WeaponIn");
             pl.weaponModel.currentWeapon = pl.weaponModel.nextWeapon;
+            if (pl.weaponModel.currentWeapon.type == Weapons.WeaponType.BareHand) pl.weaponModel.ammo = pl.weaponModel.ammoMax;
             pl.weaponModel.nextWeapon = null;
+            
         }
+        /*else
+        {
+            endAttack();
+        }*/
     }
 
     public void setGravity(float scale)
