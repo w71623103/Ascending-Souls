@@ -49,7 +49,7 @@ public abstract class Enemy : MonoBehaviour
         //ChangeState(idleState);
     }
 
-    public abstract void OnHit(Vector2 hitBackDir, float hitBackSpeed, Weapons.PushType pushtype);
+    public abstract void OnHit(Vector2 hitBackDir, float hitBackSpeed, Weapons.PushType pushtype, float hitRecover);
 
     protected abstract void flip();
 

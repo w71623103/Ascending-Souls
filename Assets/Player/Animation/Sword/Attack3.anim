@@ -257,7 +257,26 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: dmgAmmoDecrease
+    attribute: isNormalAttack
+    path: AttackCol
+    classID: 114
+    script: {fileID: 11500000, guid: 0051b90e43de99a4e8a9e039b30015d6, type: 3}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 60
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: hitRecover
     path: AttackCol
     classID: 114
     script: {fileID: 11500000, guid: 0051b90e43de99a4e8a9e039b30015d6, type: 3}
@@ -332,7 +351,7 @@ AnimationClip:
       isPPtrCurve: 0
     - serializedVersion: 2
       path: 981311578
-      attribute: 3313473996
+      attribute: 270083000
       script: {fileID: 11500000, guid: 0051b90e43de99a4e8a9e039b30015d6, type: 3}
       typeID: 114
       customType: 0
@@ -361,6 +380,13 @@ AnimationClip:
     - serializedVersion: 2
       path: 981311578
       attribute: 298341484
+      script: {fileID: 11500000, guid: 0051b90e43de99a4e8a9e039b30015d6, type: 3}
+      typeID: 114
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 981311578
+      attribute: 1580831688
       script: {fileID: 11500000, guid: 0051b90e43de99a4e8a9e039b30015d6, type: 3}
       typeID: 114
       customType: 0
@@ -634,7 +660,26 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: dmgAmmoDecrease
+    attribute: isNormalAttack
+    path: AttackCol
+    classID: 114
+    script: {fileID: 11500000, guid: 0051b90e43de99a4e8a9e039b30015d6, type: 3}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 60
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: hitRecover
     path: AttackCol
     classID: 114
     script: {fileID: 11500000, guid: 0051b90e43de99a4e8a9e039b30015d6, type: 3}

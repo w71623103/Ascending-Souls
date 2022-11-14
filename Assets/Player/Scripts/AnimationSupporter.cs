@@ -75,11 +75,11 @@ public class AnimationSupporter : MonoBehaviour
             {
                 case Weapons.WeaponType.Sword:
                     weaponDrop = Instantiate(pl.weaponModel.swordPick, transform.position, Quaternion.identity);
-                    weaponDrop.GetComponent<WeaponPick>().ammoInThis = pl.weaponModel.ammo;
+                    weaponDrop.GetComponent<WeaponPick>().ammoInThis = pl.ammo.num;
                     break;
                 case Weapons.WeaponType.GreatSword:
                     weaponDrop = Instantiate(pl.weaponModel.greatSwordPick, transform.position, Quaternion.identity);
-                    weaponDrop.GetComponent<WeaponPick>().ammoInThis = pl.weaponModel.ammo;
+                    weaponDrop.GetComponent<WeaponPick>().ammoInThis = pl.ammo.num;
                     break;
             }
             switch (pl.weaponModel.nextWeapon.type)
@@ -103,7 +103,7 @@ public class AnimationSupporter : MonoBehaviour
             //set trigger
             pl.playerAnim.SetTrigger("WeaponIn");
             pl.weaponModel.currentWeapon = pl.weaponModel.nextWeapon;
-            if (pl.weaponModel.currentWeapon.type == Weapons.WeaponType.BareHand) pl.weaponModel.ammo = pl.weaponModel.ammoMax;
+            if (pl.weaponModel.currentWeapon.type == Weapons.WeaponType.BareHand) pl.ammo.num = pl.ammo.numMax;
             pl.weaponModel.nextWeapon = null;
             
         }

@@ -344,7 +344,7 @@ PrefabInstance:
     - target: {fileID: 2937368180994290008, guid: 0806b266ce1b53f4d84172d61c503585,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3647996857851434620, guid: 0806b266ce1b53f4d84172d61c503585,
         type: 3}
@@ -357,12 +357,23 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2288488194143249872, guid: 3139897b7adcbca41a131a19a899960d,
         type: 3}
+    - target: {fileID: 8010949222893109493, guid: 0806b266ce1b53f4d84172d61c503585,
+        type: 3}
+      propertyPath: num
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8010949222893109493, guid: 0806b266ce1b53f4d84172d61c503585,
+        type: 3}
+      propertyPath: percent
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8835718647959981032, guid: 0806b266ce1b53f4d84172d61c503585,
         type: 3}
       propertyPath: m_Layer
       value: 16
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8435810354398372505, guid: 0806b266ce1b53f4d84172d61c503585, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0806b266ce1b53f4d84172d61c503585, type: 3}
 --- !u!4 &8362963849565753563 stripped
 Transform:
