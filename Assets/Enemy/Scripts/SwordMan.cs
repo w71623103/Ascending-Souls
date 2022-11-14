@@ -35,6 +35,7 @@ public class SwordMan : Enemy
     #endregion
 
     [SerializeField] private GameObject hateBar;
+    [SerializeField] private HitRecoverTolerance hitRT;
     // Start is called before the first frame update
     void Start()
     {
@@ -46,6 +47,7 @@ public class SwordMan : Enemy
         enemySP = GetComponent<SpriteRenderer>();
         soundM = GetComponent<SoundManager_Enemy>();
         myHp = GetComponent<Hp>();
+        hitRT = GetComponent<HitRecoverTolerance>();
 
         ChangeState(idleState);
     }
@@ -64,7 +66,7 @@ public class SwordMan : Enemy
         generalState.FixedUpdate(this);
     }
 
-    public override void OnHit(Vector2 hitBackDir, float hitBackSpeed, Weapons.PushType pushtype)
+    public override void OnHit(Vector2 hitBackDir, float hitBackSpeed, Weapons.PushType pushtype, float hitRecover)
     {
         hitDir = hitBackDir;
         switch(pushtype)
@@ -94,7 +96,7 @@ public class SwordMan : Enemy
         //Instantiate(blood,transform.position, Quaternion.identity)
 
         //
-        if (allowHitRecover)
+        if (hitRecover > hitRT.num)
         {
             ChangeState(hurtState);
         }

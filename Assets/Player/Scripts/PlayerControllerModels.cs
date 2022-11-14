@@ -86,28 +86,8 @@ public class PlayerWeaponModel
 {
     public Weapons currentWeapon;
     public Weapons nextWeapon = null;
-    public float ammo;
-    public float ammoMax = 100;
-    public float percent;
-    public void comsueAmmo()
-    {
-        ammo -= currentWeapon.ammoConsume;
-        if (ammo < 0) ammo = 0;
-    }
-    public float getCurrentPercent()
-    {
-        if (percent > 0.5f && percent <= 1)
-            return 1f;
-        else if (percent <= 0.5f && percent > 0.3f)
-            return 0.5f;
-        else if (percent <= 0.3f && percent > 0f)
-            return 0.3f;
-        else if (percent <= 0f)
-            return 0f;
+    public GameObject WeaponIcon;
 
-        return 0f;
-    }
-    public GameObject WeaponUI;
     [Header("Sample Weapon Types")]
     public Weapons bareHand;
     public Weapons sword;

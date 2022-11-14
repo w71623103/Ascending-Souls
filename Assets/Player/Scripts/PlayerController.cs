@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
     public Animator playerAnim;
     public SpriteRenderer playerSP;
     public SoundManager_Player soundM;
-    public GameObject ammoBar;
+    public PlayerAmmo ammo;
 
     private int groundHash;
     private int jumpVelHash;
@@ -83,11 +83,11 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         statevisualizer = state.move;
-        weaponModel.ammo = weaponModel.ammoMax;
         playerRB = GetComponent<Rigidbody2D>();
         playerAnim = GetComponent<Animator>();
         playerSP = GetComponent<SpriteRenderer>();
         //grappleModel.playerLine = GetComponent<LineRenderer>();
+        ammo = GetComponent<PlayerAmmo>();
         grappleModel.playerLine.enabled = false;
         grappleModel.playerLine.SetPosition(0, transform.position);
 
@@ -106,9 +106,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        weaponModel.percent = weaponModel.ammo / weaponModel.ammoMax;
-        weaponModel.WeaponUI.GetComponent<UnityEngine.UI.Image>().sprite = weaponModel.currentWeapon.icon;
-        ammoBar.transform.localScale = new Vector3(weaponModel.percent, 1, 1);
+        weaponModel.WeaponIcon.GetComponent<UnityEngine.UI.Image>().sprite = weaponModel.currentWeapon.icon;
         playerAnim.SetBool(groundHash, jumpModel.isGrounded);
         playerAnim.SetFloat(jumpVelHash, playerRB.velocity.y);
         generalState.Update(this);
@@ -480,6 +478,11 @@ public class PlayerController : MonoBehaviour
         HitFlash();
         if(generalState != dashState && generalState != attackStateSP)
             ChangeState(hurtState);
+    }
+
+    public void comsueAmmo()
+    {
+
     }
 
     public void HitFlash()

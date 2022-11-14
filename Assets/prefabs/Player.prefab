@@ -495,6 +495,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4398355067355197500}
   - component: {fileID: 4398355067355197501}
+  - component: {fileID: 8235507165075865889}
   - component: {fileID: 4398355067355197502}
   - component: {fileID: 4398355067355197503}
   - component: {fileID: 4398355067355197496}
@@ -549,6 +550,23 @@ MonoBehaviour:
   mHp: 100
   percent: 0
   HpBar: {fileID: 0}
+--- !u!114 &8235507165075865889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4398355067355197440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 211c6187e7d3cbd4687f6b5024148405, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  num: 0
+  numMax: 100
+  percent: 0
+  ammoBar: {fileID: 0}
+  pl: {fileID: 0}
 --- !u!114 &4398355067355197502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -611,10 +629,7 @@ MonoBehaviour:
   weaponModel:
     currentWeapon: {fileID: 11400000, guid: e615ae38f820bad41bbbea75b95e8f82, type: 2}
     nextWeapon: {fileID: 0}
-    ammo: 0
-    ammoMax: 100
-    percent: 0
-    WeaponUI: {fileID: 0}
+    WeaponIcon: {fileID: 0}
     bareHand: {fileID: 11400000, guid: 6f706f8ae6adad2408b6341ce1f2d070, type: 2}
     sword: {fileID: 11400000, guid: e615ae38f820bad41bbbea75b95e8f82, type: 2}
     greatSword: {fileID: 11400000, guid: 65d372fed7720a344ae0d9e044a1b97b, type: 2}
@@ -630,7 +645,7 @@ MonoBehaviour:
   playerAnim: {fileID: 0}
   playerSP: {fileID: 0}
   soundM: {fileID: 0}
-  ammoBar: {fileID: 0}
+  ammo: {fileID: 0}
   slideAllowHitDis: 1.5
 --- !u!114 &4398355067355197503
 MonoBehaviour:
@@ -987,14 +1002,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pl: {fileID: 0}
+  plAmmo: {fileID: 0}
   attackDir: {x: 0, y: 0}
   attackVerticalDir: 0
   pushType: 0
   hitBackSpeed: 0
-  dmgAmmoDecrease: 1
+  isNormalAttack: 1
   damage: 0
   finalDamage: 0
-  currentPercent: 0
   hitPauseTime: 12
 --- !u!114 &4398355067636232142
 MonoBehaviour:
