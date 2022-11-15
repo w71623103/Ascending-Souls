@@ -12,6 +12,7 @@ public class SwordMan : Enemy
     public SwordManAttackSPState attackStateSP = new SwordManAttackSPState();
     public SwordManPatrolState patrolState = new SwordManPatrolState();
     public SwordManChaseState chaseState = new SwordManChaseState();
+    public SwordManAttackFinishState attackFinishState = new SwordManAttackFinishState();
 
     public void ChangeState(SwordManStateBase newState)
     {
@@ -59,6 +60,7 @@ public class SwordMan : Enemy
         flip();
         checkGround();
         checkPlayer();
+        attackModel.hatePercent = attackModel.attackSPHate / attackModel.attackSPHateGate;
     }
 
     private void FixedUpdate()
@@ -143,10 +145,21 @@ public class SwordMan : Enemy
         if (hit.collider != null)
         {
             target = hit.collider.gameObject;
+            attackModel.playerInRange = true;
         }
         else
         {
             target = null;
+            RaycastHit2D hitBack = Physics2D.Raycast(eyePos.position, new Vector2(-1 * (int)moveModel.Direction, 0), sightDis, playerMask);
+            Debug.DrawRay(eyePos.position, new Vector2(-1 * (int)moveModel.Direction, 0), Color.red);
+            if(hitBack.collider != null)
+            {
+                attackModel.playerInRange = true;
+            }
+            else
+            {
+                attackModel.playerInRange = false;
+            }
         }
     }
 

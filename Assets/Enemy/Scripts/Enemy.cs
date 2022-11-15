@@ -11,6 +11,7 @@ public abstract class Enemy : MonoBehaviour
         Patrol,
         Chase,
         Attack,
+        AttackFinish,
     }
     public enemyStates statevisualizer;
     [Header("Component")]
