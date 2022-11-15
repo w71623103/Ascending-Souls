@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1357190778791474485}
   - component: {fileID: 2873783803474993077}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: HateBar_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -310,11 +310,16 @@ MonoBehaviour:
     attackNormalRange: 1
     attackSPRange: 1.45
     attackSPHate: 0
-    attackSPHateGate: 5
+    attackSPHateGate: 3
+    hatePercent: 0
+    attackFinishTime: 1
+    attackFinishMoveSpeed: 1
+    playerInRange: 0
   chaseModel:
     chaseSpeed: 4
     chaseRange: []
   hateBar: {fileID: 817202507937506305}
+  hitRT: {fileID: 0}
 --- !u!114 &3647996857851434620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -654,7 +659,7 @@ GameObject:
   m_Component:
   - component: {fileID: 590365509404349755}
   - component: {fileID: 4485656976790560288}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: HateBar_Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}

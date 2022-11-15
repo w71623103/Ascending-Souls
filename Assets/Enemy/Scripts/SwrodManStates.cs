@@ -240,14 +240,15 @@ public class SwordManAttackState : SwordManStateBase
 
         if (isFinished)
         {
-            if(Physics2D.OverlapCircle(em.attackModel.attackPointSP.position, em.attackModel.attackSPRange, em.playerMask))
+            /*if(Physics2D.OverlapCircle(em.attackModel.attackPointSP.position, em.attackModel.attackSPRange, em.playerMask))
             {
                 em.ChangeState(em.chaseState);
             }
             else
             {
                 em.ChangeState(em.idleState);
-            }
+            }*/
+            em.ChangeState(em.attackFinishState);
         }
     }
     public override void FixedUpdate(SwordMan em)
@@ -275,14 +276,15 @@ public class SwordManAttackSPState : SwordManStateBase
 
         if (isFinished)
         {
-            if (Physics2D.OverlapCircle(em.attackModel.attackPointSP.position, em.attackModel.attackSPRange, em.playerMask))
+            /*if (Physics2D.OverlapCircle(em.attackModel.attackPointSP.position, em.attackModel.attackSPRange, em.playerMask))
             {
                 em.ChangeState(em.chaseState);
             }
             else
             {
                 em.ChangeState(em.idleState);
-            }
+            }*/
+            em.ChangeState(em.attackFinishState);
         }
     }
     public override void FixedUpdate(SwordMan em)
@@ -292,6 +294,47 @@ public class SwordManAttackSPState : SwordManStateBase
     public override void ExitState(SwordMan em)
     {
         //em.allowHitRecover = true;
+        em.attackModel.attackSPHate = 0f;
+    }
+}
+
+public class SwordManAttackFinishState : SwordManStateBase
+{
+    private float timer = 0f;
+    private float timeDiff;
+    private bool isApproach = true;
+    public override void EnterState(SwordMan em)
+    {
+        em.statevisualizer = Enemy.enemyStates.AttackFinish;
+        em.enemyAnim.Play("Run");
+        timer = 0f;
+        timeDiff = Random.Range(-0.5f, 0.5f);
+        if(em.target != null && em.attackModel.hatePercent >= 0.5f)
+        {
+            isApproach = true;
+        }
+        else
+        {
+            isApproach = false;
+        }
+    }
+    public override void Update(SwordMan em)
+    {
+        timer += Time.deltaTime;
+        if(timer > em.attackModel.attackFinishTime + timeDiff)
+        {
+            em.ChangeState(em.idleState);
+        }
+        if (em.attackModel.playerInRange && em.target == null) em.turn();
+    }
+    public override void FixedUpdate(SwordMan em)
+    {
+        if(isApproach) em.enemyRB.velocity = new Vector2((int)em.moveModel.Direction, em.enemyRB.velocity.y) * em.attackModel.attackFinishMoveSpeed;
+        else em.enemyRB.velocity = new Vector2(-1 * (int)em.moveModel.Direction, em.enemyRB.velocity.y) * em.attackModel.attackFinishMoveSpeed;
+    }
+    public override void ExitState(SwordMan em)
+    {
+        timer = 0f;
     }
 }
 #endregion

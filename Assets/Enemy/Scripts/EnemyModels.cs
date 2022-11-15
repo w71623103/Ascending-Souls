@@ -53,5 +53,8 @@ public class EnemyAttackModel
     public float attackSPRange;
     public float attackSPHate = 0f;
     public float attackSPHateGate;
-
+    public float hatePercent;
+    public float attackFinishTime = 5f;
+    public float attackFinishMoveSpeed;
+    public bool playerInRange;
 }
