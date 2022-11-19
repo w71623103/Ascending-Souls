@@ -234,7 +234,7 @@ public class PlayerController : MonoBehaviour
     {
         if (/*jumpModel.isGrounded*/true)
         {
-            if (generalState != attackStateSP && generalState != dashState && generalState != wallJumpState && generalState != grappleState && generalState != slideState)
+            if (generalState != attackStateSP && generalState != dashState && generalState != wallJumpState && generalState != grappleState && generalState != slideState && generalState != grappleJumpState)
             {
                 if (weaponModel.currentWeapon.type != Weapons.WeaponType.BareHand)
                 {
@@ -248,7 +248,7 @@ public class PlayerController : MonoBehaviour
 
     public void pickWeapon(Weapons newWeapon)
     {
-        if (generalState != attackStateSP && generalState != attackState && generalState != dashState && generalState != wallJumpState && generalState != grappleState && generalState != slideState && generalState != hurtState)
+        if (generalState != attackStateSP && generalState != attackState && generalState != dashState && generalState != wallJumpState && generalState != grappleState && generalState != slideState && generalState != hurtState && generalState != grappleJumpState)
         {
             attackModel.allowInput = false;
             weaponModel.nextWeapon = newWeapon;
@@ -260,7 +260,7 @@ public class PlayerController : MonoBehaviour
     {
         if (moveModel.VerticalMovement > 0)
         {
-            if (attackModel.attackTimer <= 0f && generalState != attackState && generalState != dashState && generalState != attackStateSP && generalState != attackStateUp && generalState != hurtState)
+            if (attackModel.attackTimer <= 0f && generalState != attackState && generalState != dashState && generalState != attackStateSP && generalState != attackStateUp && generalState != hurtState && generalState != grappleJumpState)
                 ChangeState(attackStateUp);
             else if (attackModel.allowInput && generalState != attackStateSP && generalState != attackStateUp)
             {
@@ -269,7 +269,7 @@ public class PlayerController : MonoBehaviour
         }
         else if(moveModel.VerticalMovement < 0)
         {
-            if (attackModel.attackTimer <= 0f && generalState != attackState && generalState != dashState && generalState != attackStateSP && generalState != attackStateUp && generalState != hurtState)
+            if (attackModel.attackTimer <= 0f && generalState != attackState && generalState != dashState && generalState != attackStateSP && generalState != attackStateUp && generalState != hurtState && generalState != grappleJumpState)
             {
                 if (weaponModel.currentWeapon.type != Weapons.WeaponType.BareHand)
                 {
@@ -277,7 +277,7 @@ public class PlayerController : MonoBehaviour
                     ChangeState(attackStateDown);
                 }
             }
-            else if (attackModel.allowInput && generalState != attackStateSP && generalState != attackStateUp)
+            else if (attackModel.allowInput && generalState != attackStateSP && generalState != attackStateUp && generalState != grappleJumpState)
             {
                 if (weaponModel.currentWeapon.type != Weapons.WeaponType.BareHand)
                 {
@@ -295,7 +295,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                if (attackModel.allowInput && generalState != attackStateSP && generalState != attackStateUp)
+                if (attackModel.allowInput && generalState != attackStateSP && generalState != attackStateUp && generalState != grappleJumpState)
                 {
                     attackModel.allowInput = false;
                     attackModel.comboed = true;
@@ -307,7 +307,7 @@ public class PlayerController : MonoBehaviour
         {
             if(attackModel.airAttackCount > 0)
             {
-                if (generalState != attackState && generalState != dashState && generalState != hurtState)
+                if (generalState != attackState && generalState != dashState && generalState != hurtState && generalState != grappleJumpState)
                 {
                     if (attackModel.attackTimer <= 0f)
                         ChangeState(attackState);
