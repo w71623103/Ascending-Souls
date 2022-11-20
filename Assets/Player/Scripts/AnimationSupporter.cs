@@ -104,6 +104,11 @@ public class AnimationSupporter : MonoBehaviour
             pl.playerAnim.SetTrigger("WeaponIn");
             pl.weaponModel.currentWeapon = pl.weaponModel.nextWeapon;
             if (pl.weaponModel.currentWeapon.type == Weapons.WeaponType.BareHand) pl.ammo.num = pl.ammo.numMax;
+            else
+            {
+                pl.ammo.num = pl.ammo.ammoNext;
+                pl.ammo.ammoNext = 0;
+            }
             pl.weaponModel.nextWeapon = null;
             
         }

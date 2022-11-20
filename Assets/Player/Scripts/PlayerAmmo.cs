@@ -7,6 +7,7 @@ public class PlayerAmmo : Stat
     [SerializeField] private float percent;
     [SerializeField] private GameObject ammoBar;
     [SerializeField] private PlayerController pl;
+    public float ammoNext = 0f;
     public float ammoDamageModifier_NormalAttack;
     public float ammoDamageModifier_HeavyAttack;
 

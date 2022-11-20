@@ -1,15 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class WeaponPick : Interactable
 {
     [SerializeField] Weapons myWeapon;
+    [SerializeField] GameObject ammoBar;
     public float ammoInThis;
     // Start is called before the first frame update
     void Start()
     {
-        
+        ammoBar.transform.localScale = new Vector3(1f, ammoInThis / 100, 1f);
     }
 
     // Update is called once per frame
@@ -23,7 +25,7 @@ public class WeaponPick : Interactable
 
     public override void OnInteract(PlayerController pl)
     {
-        pl.ammo.num = ammoInThis;
+        pl.ammo.ammoNext = ammoInThis;
         pl.pickWeapon(myWeapon);
         Destroy(gameObject);
     }
