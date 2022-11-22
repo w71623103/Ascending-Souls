@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHp : Hp
 {
@@ -23,6 +24,7 @@ public class PlayerHp : Hp
     {
         Debug.Log("I'm dead.");
         hp = mHp;
-        //UnityEngine.SceneManagement.SceneManager.LoadScene("TestYourLimit");
+        gameObject.transform.position = new Vector3(-3.54f, 2.58f, 0);
+        SceneManager.LoadScene("Continue");
     }
 }
