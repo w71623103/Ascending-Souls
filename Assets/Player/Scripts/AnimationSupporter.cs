@@ -81,6 +81,10 @@ public class AnimationSupporter : MonoBehaviour
                     weaponDrop = Instantiate(pl.weaponModel.greatSwordPick, transform.position, Quaternion.identity);
                     weaponDrop.GetComponent<WeaponPick>().ammoInThis = pl.ammo.num;
                     break;
+                case Weapons.WeaponType.DualBlade:
+                    weaponDrop = Instantiate(pl.weaponModel.dualSwordPick, transform.position, Quaternion.identity);
+                    weaponDrop.GetComponent<WeaponPick>().ammoInThis = pl.ammo.num;
+                    break;
             }
             switch (pl.weaponModel.nextWeapon.type)
             {
@@ -88,16 +92,25 @@ public class AnimationSupporter : MonoBehaviour
                     pl.playerAnim.SetLayerWeight(pl.playerAnim.GetLayerIndex("BareHand"), 1f);
                     pl.playerAnim.SetLayerWeight(pl.playerAnim.GetLayerIndex("Sword"), 0f);
                     pl.playerAnim.SetLayerWeight(pl.playerAnim.GetLayerIndex("GreatSword"), 0f);
+                    pl.playerAnim.SetLayerWeight(pl.playerAnim.GetLayerIndex("DualSword"), 0f);
                     break;
                 case Weapons.WeaponType.Sword:
                     pl.playerAnim.SetLayerWeight(pl.playerAnim.GetLayerIndex("BareHand"), 0f);
                     pl.playerAnim.SetLayerWeight(pl.playerAnim.GetLayerIndex("Sword"), 1f);
                     pl.playerAnim.SetLayerWeight(pl.playerAnim.GetLayerIndex("GreatSword"), 0f);
+                    pl.playerAnim.SetLayerWeight(pl.playerAnim.GetLayerIndex("DualSword"), 0f);
                     break;
                 case Weapons.WeaponType.GreatSword:
                     pl.playerAnim.SetLayerWeight(pl.playerAnim.GetLayerIndex("BareHand"), 0f);
                     pl.playerAnim.SetLayerWeight(pl.playerAnim.GetLayerIndex("Sword"), 0f);
                     pl.playerAnim.SetLayerWeight(pl.playerAnim.GetLayerIndex("GreatSword"), 1f);
+                    pl.playerAnim.SetLayerWeight(pl.playerAnim.GetLayerIndex("DualSword"), 0f);
+                    break;
+                case Weapons.WeaponType.DualBlade:
+                    pl.playerAnim.SetLayerWeight(pl.playerAnim.GetLayerIndex("BareHand"), 0f);
+                    pl.playerAnim.SetLayerWeight(pl.playerAnim.GetLayerIndex("Sword"), 0f);
+                    pl.playerAnim.SetLayerWeight(pl.playerAnim.GetLayerIndex("GreatSword"), 0f);
+                    pl.playerAnim.SetLayerWeight(pl.playerAnim.GetLayerIndex("DualSword"), 1f);
                     break;
             }
             //set trigger

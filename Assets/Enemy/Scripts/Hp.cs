@@ -6,6 +6,8 @@ public abstract class Hp : MonoBehaviour
 {
     public float hp;
     public float mHp = 100f;
+    protected GameObject restoreFeedback;
+
     public enum DamageMode
     {
         single,
@@ -33,4 +35,10 @@ public abstract class Hp : MonoBehaviour
     }
 
     protected abstract void Die();
+
+    public virtual void restoreHP(float num)
+    {
+        hp += num;
+        if(hp > mHp) hp = mHp;
+    }
 }

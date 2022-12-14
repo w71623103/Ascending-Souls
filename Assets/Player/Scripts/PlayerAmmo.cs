@@ -10,6 +10,7 @@ public class PlayerAmmo : Stat
     public float ammoNext = 0f;
     public float ammoDamageModifier_NormalAttack;
     public float ammoDamageModifier_HeavyAttack;
+    [SerializeField] protected MoreMountains.Feedbacks.MMFeedbacks ammoFeedback;
 
     // Update is called once per frame
     void Update()
@@ -21,11 +22,17 @@ public class PlayerAmmo : Stat
             ammoDamageModifier_NormalAttack = ammoDamage();
             ammoDamageModifier_HeavyAttack = 1 / ammoDamage();
         }
+        if(percent < 0.5f)
+            pl.weaponModel.WeaponIcon.GetComponent<UnityEngine.UI.Image>().sprite = pl.weaponModel.currentWeapon.lowAmmoIcon;
+        else
+            pl.weaponModel.WeaponIcon.GetComponent<UnityEngine.UI.Image>().sprite = pl.weaponModel.currentWeapon.icon;
+
     }
 
     public void consumeAmmo()
     {
         decrease(pl.weaponModel.currentWeapon.ammoConsume);
+        ammoFeedback?.PlayFeedbacks();
     }
 
     public float ammoDamage()

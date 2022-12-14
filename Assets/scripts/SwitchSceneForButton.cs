@@ -8,4 +8,9 @@ public class SwitchSceneForButton : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
     }
+
+    void OnStartGame()
+    {
+        SwitchScene("Initialize");
+    }
 }

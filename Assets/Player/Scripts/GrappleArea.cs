@@ -30,6 +30,13 @@ public class GrappleArea : MonoBehaviour
         {
             targetPoint.SetActive(false);
         }
+        /*if (possiblePoints.Count > 0)
+        {
+            foreach (var point in possiblePoints)
+            {
+                if (point == null) possiblePoints.Remove(point);
+            }
+        }*/
     }
 
     private void closestPoint()
@@ -65,5 +72,10 @@ public class GrappleArea : MonoBehaviour
     {
         possiblePoints.Remove(collision.gameObject);
         closestPoint();
+    }
+
+    public void clearPossiblePoints()
+    {
+        possiblePoints.Clear();
     }
 }

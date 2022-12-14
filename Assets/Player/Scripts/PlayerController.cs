@@ -52,6 +52,8 @@ public class PlayerController : MonoBehaviour
     public SpriteRenderer playerSP;
     public SoundManager_Player soundM;
     public PlayerAmmo ammo;
+    public PlayerHeal heal;
+    [SerializeField] private MoreMountains.Feedbacks.MMFeedbacks damageFeedback;
 
     private int groundHash;
     private int jumpVelHash;
@@ -88,6 +90,8 @@ public class PlayerController : MonoBehaviour
         playerSP = GetComponent<SpriteRenderer>();
         //grappleModel.playerLine = GetComponent<LineRenderer>();
         ammo = GetComponent<PlayerAmmo>();
+        heal = GetComponent<PlayerHeal>();
+
         grappleModel.playerLine.enabled = false;
         grappleModel.playerLine.SetPosition(0, transform.position);
 
@@ -106,7 +110,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        weaponModel.WeaponIcon.GetComponent<UnityEngine.UI.Image>().sprite = weaponModel.currentWeapon.icon;
+        /*weaponModel.WeaponIcon.GetComponent<UnityEngine.UI.Image>().sprite = weaponModel.currentWeapon.icon;*/
         playerAnim.SetBool(groundHash, jumpModel.isGrounded);
         playerAnim.SetFloat(jumpVelHash, playerRB.velocity.y);
         generalState.Update(this);
@@ -132,20 +136,30 @@ public class PlayerController : MonoBehaviour
                     playerAnim.SetLayerWeight(playerAnim.GetLayerIndex("BareHand"), 1f);
                     playerAnim.SetLayerWeight(playerAnim.GetLayerIndex("Sword"), 0f);
                     playerAnim.SetLayerWeight(playerAnim.GetLayerIndex("GreatSword"), 0f);
+                    playerAnim.SetLayerWeight(playerAnim.GetLayerIndex("DualSword"), 0f);
                     break;
                 case Weapons.WeaponType.Sword:
                     playerAnim.SetLayerWeight(playerAnim.GetLayerIndex("BareHand"), 0f);
                     playerAnim.SetLayerWeight(playerAnim.GetLayerIndex("Sword"), 1f);
                     playerAnim.SetLayerWeight(playerAnim.GetLayerIndex("GreatSword"), 0f);
+                    playerAnim.SetLayerWeight(playerAnim.GetLayerIndex("DualSword"), 0f);
                     break;
                 case Weapons.WeaponType.GreatSword:
                     playerAnim.SetLayerWeight(playerAnim.GetLayerIndex("BareHand"), 0f);
                     playerAnim.SetLayerWeight(playerAnim.GetLayerIndex("Sword"), 0f);
                     playerAnim.SetLayerWeight(playerAnim.GetLayerIndex("GreatSword"), 1f);
+                    playerAnim.SetLayerWeight(playerAnim.GetLayerIndex("DualSword"), 0f);
+                    break;
+                case Weapons.WeaponType.DualBlade:
+                    playerAnim.SetLayerWeight(playerAnim.GetLayerIndex("BareHand"), 0f);
+                    playerAnim.SetLayerWeight(playerAnim.GetLayerIndex("Sword"), 0f);
+                    playerAnim.SetLayerWeight(playerAnim.GetLayerIndex("GreatSword"), 0f);
+                    playerAnim.SetLayerWeight(playerAnim.GetLayerIndex("DualSword"), 1f);
                     break;
             }
         }
         //Timers
+        if (dashModel.dashCDTimer >= 0) dashModel.dashCDTimer -= Time.deltaTime;
         if (slideModel.slidingCancelTimer >= 0) slideModel.slidingCancelTimer -= Time.deltaTime;
         if (attackModel.attackTimer > 0f && generalState != attackState) attackModel.attackTimer -= Time.deltaTime;
     }
@@ -219,7 +233,7 @@ public class PlayerController : MonoBehaviour
 
     void OnDash()
     {
-        if(generalState != dashState && dashModel.allowDash && generalState != slideState && generalState != attackStateSP)
+        if(dashModel.dashCDTimer <= 0f && generalState != dashState && dashModel.allowDash && generalState != slideState && generalState != attackStateSP)
         {
             ChangeState(dashState);
         }
@@ -352,6 +366,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void OnWeaponGrapple()
+    {
+        if (generalState != attackStateSP && generalState != attackState && generalState != dashState && generalState != wallJumpState && generalState != grappleState && generalState != slideState && generalState != hurtState)
+        {
+            RaycastHit2D hitWeapon = Physics2D.Raycast(grappleModel.WeaponGrappleStartPos.position, new Vector2((int)moveModel.Direction, 0), grappleModel.weaponGrappleLength, LayerMask.GetMask("Interactable"));
+            if (hitWeapon.collider != null)
+            {
+                if(hitWeapon.collider.CompareTag("WeaponPick")) hitWeapon.collider.gameObject.GetComponent<ItemMovement>().activate(grappleModel.WeaponGrappleTargetPos.position);
+            }
+        }
+    }
+
     void OnInteract()
     {
         if (generalState != attackStateSP && generalState != attackState && generalState != dashState && generalState != wallJumpState && generalState != grappleState && generalState != slideState && generalState != hurtState)
@@ -365,12 +391,21 @@ public class PlayerController : MonoBehaviour
                         hit.collider.GetComponent<WeaponPick>().OnInteract(this);
                         break;
 
-                    default:
+                    case "SavePoint":
+                        hit.collider.GetComponent<SavePoint>().OnInteract(this);
+                        break;
 
+                    default:
+                        hit.collider.GetComponent<Interactable>().OnInteract(this);
                         break;
                 }
             }
         }
+    }
+
+    void OnHeal()
+    {
+        heal.Heal();
     }
 
     void flip()
@@ -452,6 +487,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnHit(Vector2 hitBackDir, float hitBackSpeed, Weapons.PushType pushtype)
     {
+        damageFeedback?.PlayFeedbacks();
         switch (pushtype)
         {
             case Weapons.PushType.pushBack:
@@ -478,11 +514,6 @@ public class PlayerController : MonoBehaviour
         HitFlash();
         if(generalState != dashState && generalState != attackStateSP)
             ChangeState(hurtState);
-    }
-
-    public void comsueAmmo()
-    {
-
     }
 
     public void HitFlash()

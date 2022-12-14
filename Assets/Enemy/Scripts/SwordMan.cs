@@ -27,6 +27,7 @@ public class SwordMan : Enemy
         }
     }
     #endregion
+
     #region Models
     public EnemyMoveModel moveModel = new EnemyMoveModel();
     public EnemyIdleModel idleModel = new EnemyIdleModel();
@@ -68,8 +69,9 @@ public class SwordMan : Enemy
         generalState.FixedUpdate(this);
     }
 
-    public override void OnHit(Vector2 hitBackDir, float hitBackSpeed, Weapons.PushType pushtype, float hitRecover)
+    public override void OnHit(int damage, Vector2 hitBackDir, float hitBackSpeed, Weapons.PushType pushtype, float hitRecover)
     {
+        damageFeedback?.PlayFeedbacks(this.transform.position, damage);
         hitDir = hitBackDir;
         switch(pushtype)
         {

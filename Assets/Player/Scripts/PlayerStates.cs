@@ -25,6 +25,7 @@ public class PlayerMoveState : PlayerState
     public override void Update(PlayerController pl)
     {
         pl.playerAnim.SetBool(moveBoolHash, pl.moveModel.HorizontalMovement != 0f);
+        if(pl.playerRB.gravityScale == 0f) pl.playerRB.gravityScale = 3f;
     }
     public override void FixedUpdate(PlayerController pl)
     {
@@ -139,6 +140,7 @@ public class PlayerDashState : PlayerState
         Physics2D.IgnoreLayerCollision(6, 14, false);
         Physics2D.IgnoreLayerCollision(6, 16, false);
         Physics2D.IgnoreLayerCollision(7, 16, false);
+        pl.dashModel.dashCDTimer = pl.dashModel.dashCD;
     }
 }
 
@@ -398,6 +400,13 @@ public class PlayerHurtState : PlayerState
         { 
             if(pl.jumpModel.isGrounded)
                 pl.ChangeState(pl.moveState); 
+            else
+                pl.ChangeState(pl.jumpState);
+        }
+        if(!pl.playerAnim.GetCurrentAnimatorStateInfo(currentLayer).IsName("hurt"))
+        {
+            if (pl.jumpModel.isGrounded)
+                pl.ChangeState(pl.moveState);
             else
                 pl.ChangeState(pl.jumpState);
         }
