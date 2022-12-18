@@ -293,31 +293,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1457070579528074383, guid: 0806b266ce1b53f4d84172d61c503585,
         type: 3}
-      propertyPath: chaseModel.chaseSpeed
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1457070579528074383, guid: 0806b266ce1b53f4d84172d61c503585,
-        type: 3}
-      propertyPath: idleModel.idleTimerMax
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1457070579528074383, guid: 0806b266ce1b53f4d84172d61c503585,
-        type: 3}
-      propertyPath: patrolModel.patrolSpeed
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1457070579528074383, guid: 0806b266ce1b53f4d84172d61c503585,
-        type: 3}
-      propertyPath: attackModel.attackSPHateGate
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1457070579528074383, guid: 0806b266ce1b53f4d84172d61c503585,
-        type: 3}
-      propertyPath: chaseModel.chaseRange.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1457070579528074383, guid: 0806b266ce1b53f4d84172d61c503585,
-        type: 3}
       propertyPath: chaseModel.chaseRange.Array.data[0]
       value: 
       objectReference: {fileID: 6933215448399119066}
@@ -328,11 +303,6 @@ PrefabInstance:
       objectReference: {fileID: 6933215448306444241}
     - target: {fileID: 1457070579528074383, guid: 0806b266ce1b53f4d84172d61c503585,
         type: 3}
-      propertyPath: patrolModel.patrolDestination.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1457070579528074383, guid: 0806b266ce1b53f4d84172d61c503585,
-        type: 3}
       propertyPath: patrolModel.patrolDestination.Array.data[0]
       value: 
       objectReference: {fileID: 6933215447501973599}
@@ -341,49 +311,28 @@ PrefabInstance:
       propertyPath: patrolModel.patrolDestination.Array.data[1]
       value: 
       objectReference: {fileID: 6933215447615441953}
+    - target: {fileID: 1953024128945693956, guid: 0806b266ce1b53f4d84172d61c503585,
+        type: 3}
+      propertyPath: PooledSimpleMMFloatingText
+      value: 
+      objectReference: {fileID: -6352052991079374886, guid: 5645e1ad8cdc26e42849e8e905e5a34a,
+        type: 3}
     - target: {fileID: 2684214715375831942, guid: 0806b266ce1b53f4d84172d61c503585,
         type: 3}
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 2937368180994290008, guid: 0806b266ce1b53f4d84172d61c503585,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3647996857851434620, guid: 0806b266ce1b53f4d84172d61c503585,
         type: 3}
       propertyPath: mHp
-      value: 70
+      value: 160
       objectReference: {fileID: 0}
-    - target: {fileID: 3647996857851434620, guid: 0806b266ce1b53f4d84172d61c503585,
-        type: 3}
-      propertyPath: dropWeaponList.Array.data[0]
-      value: 
-      objectReference: {fileID: 2288488194143249872, guid: 3139897b7adcbca41a131a19a899960d,
-        type: 3}
     - target: {fileID: 6969749065801885704, guid: 0806b266ce1b53f4d84172d61c503585,
         type: 3}
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 8010949222893109493, guid: 0806b266ce1b53f4d84172d61c503585,
-        type: 3}
-      propertyPath: num
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8010949222893109493, guid: 0806b266ce1b53f4d84172d61c503585,
-        type: 3}
-      propertyPath: percent
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8835718647959981032, guid: 0806b266ce1b53f4d84172d61c503585,
-        type: 3}
-      propertyPath: m_Layer
-      value: 16
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 8435810354398372505, guid: 0806b266ce1b53f4d84172d61c503585, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0806b266ce1b53f4d84172d61c503585, type: 3}
 --- !u!4 &8362963849565753563 stripped
 Transform:

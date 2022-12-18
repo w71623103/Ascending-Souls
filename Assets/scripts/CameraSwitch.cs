@@ -5,12 +5,14 @@ using UnityEngine;
 public class CameraSwitch : MonoBehaviour
 {
     [SerializeField] private GameObject targetCamera;
-    [SerializeField] private GameObject cameraManager;
-    private GameObject currentCamera;
+    [SerializeField] private CameraManager cm;
+    //private GameObject currentCamera;
+
+/*    [SerializeField] private bool playerIn;*/
     // Start is called before the first frame update
     void Start()
     {
-        currentCamera = cameraManager.GetComponent<CameraManager>().currentCamera;
+        //currentCamera = cameraManager.GetComponent<CameraManager>().currentCamera;
     }
 
     /*// Update is called once per frame
@@ -23,13 +25,22 @@ public class CameraSwitch : MonoBehaviour
     {
         if(collision.CompareTag("Player"))
         {
-            if(currentCamera != targetCamera)
+            /*playerIn = true;*/
+            if(cm.currentCamera != targetCamera)
             {
                 targetCamera.SetActive(true);
-                currentCamera.SetActive(false);
-                cameraManager.GetComponent<CameraManager>().currentCamera = targetCamera;
+                cm.currentCamera.SetActive(false);
+                cm.currentCamera = targetCamera;
             }
             
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            /*playerIn = false;*/
         }
     }
 }

@@ -7,7 +7,8 @@ public class PlayerHp : Hp
 {
     [SerializeField] private float percent;
     [SerializeField] private GameObject HpBar;
-
+    [SerializeField] private PlayerHeal heal;
+    [SerializeField] private SaveManager saveManager;
     // Update is called once per frame
     void Update()
     {
@@ -22,9 +23,11 @@ public class PlayerHp : Hp
 
     protected override void Die()
     {
-        Debug.Log("I'm dead.");
+        Time.timeScale = 1;
+        GetComponent<PlayerController>().grappleModel.GrappleSensor.GetComponent<GrappleArea>().clearPossiblePoints();
         hp = mHp;
-        gameObject.transform.position = new Vector3(-3.54f, 2.58f, 0);
+        gameObject.transform.position = saveManager.savePointPos;
+        heal.increase(heal.numMax);
         SceneManager.LoadScene("Continue");
     }
 }

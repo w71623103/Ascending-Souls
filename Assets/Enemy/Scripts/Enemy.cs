@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MoreMountains.Feedbacks;
+using MoreMountains.Tools;
 
 public abstract class Enemy : MonoBehaviour
 {
@@ -20,6 +22,7 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] public SpriteRenderer enemySP;
     [SerializeField] public SoundManager_Enemy soundM;
     [SerializeField] protected Hp myHp;
+    [SerializeField] protected MoreMountains.Feedbacks.MMFeedbacks damageFeedback;
 
     [Header("Hit")]
     public bool allowHitRecover = true;
@@ -50,7 +53,7 @@ public abstract class Enemy : MonoBehaviour
         //ChangeState(idleState);
     }
 
-    public abstract void OnHit(Vector2 hitBackDir, float hitBackSpeed, Weapons.PushType pushtype, float hitRecover);
+    public abstract void OnHit(int damage, Vector2 hitBackDir, float hitBackSpeed, Weapons.PushType pushtype, float hitRecover);
 
     protected abstract void flip();
 

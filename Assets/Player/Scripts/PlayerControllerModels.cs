@@ -36,7 +36,8 @@ public class PlayerDashModel
 {
     public float dashSpeed;
     public bool allowDash = true;
-    
+    public float dashCDTimer;
+    public float dashCD = 2f;
 }
 
 [System.Serializable]
@@ -79,6 +80,10 @@ public class PlayerGrappleModel
     public float grapplePointExcludeCD;
     public GrappleArea GrappleSensor;
     public LineRenderer playerLine;
+
+    public float weaponGrappleLength;
+    public Transform WeaponGrappleStartPos;
+    public Transform WeaponGrappleTargetPos;
 }
 
 [System.Serializable]
@@ -92,10 +97,12 @@ public class PlayerWeaponModel
     public Weapons bareHand;
     public Weapons sword;
     public Weapons greatSword;
+    public Weapons dualSword;
 
     [Header("Drop Weapon Types")]
     public GameObject swordPick;
     public GameObject greatSwordPick;
+    public GameObject dualSwordPick;
 }
 
 [System.Serializable]
@@ -109,3 +116,12 @@ public class PlayerHurtModel
 {
     public float flashTime;
 }
+
+/*[System.Serializable]
+public class PlayerHealModel
+{
+    public float heal;
+
+    public int healNum;
+    public int healNumMax = 5;
+}*/

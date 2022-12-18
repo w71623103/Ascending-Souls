@@ -41,8 +41,6 @@ public class EnemyHp : Hp
     {
         if(dropOBJ != null)
             Instantiate(dropOBJ, transform.position, Quaternion.identity);
-        //gameObject.SetActive(false);
-        Debug.Log(transform.name + " is dead.");
         //hp = mHp;
         if (GetComponent<Animator>() != null)
             GetComponent<Animator>().SetBool("isDead", true);
