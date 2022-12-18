@@ -1318,7 +1318,6 @@ GameObject:
   - component: {fileID: 4398355067355197444}
   - component: {fileID: 4398355067355197445}
   - component: {fileID: 4398355067355197447}
-  - component: {fileID: 1100484762}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -1401,6 +1400,7 @@ MonoBehaviour:
   percent: 0
   HpBar: {fileID: 0}
   heal: {fileID: 4898656824349022782}
+  saveManager: {fileID: 0}
 --- !u!114 &8235507165075865889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1417,6 +1417,7 @@ MonoBehaviour:
   numMax: 100
   percent: 0
   ammoBar: {fileID: 0}
+  dropWeaponButton: {fileID: 0}
   pl: {fileID: 4398355067355197502}
   ammoNext: 0
   ammoDamageModifier_NormalAttack: 0
@@ -1794,26 +1795,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1100484762
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4398355067355197440}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c19d5118dfc6dc4b872713908b02bf6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  num: 0
-  numMax: 0
-  healPower: 20
-  playerHp: {fileID: 0}
-  HealFeedback: {fileID: 0}
-  healCD: 0
-  healCDTimer: 0
-  healnum: {fileID: 0}
 --- !u!1 &4398355067913669227
 GameObject:
   m_ObjectHideFlags: 0
