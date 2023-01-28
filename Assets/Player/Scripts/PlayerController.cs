@@ -65,6 +65,12 @@ public class PlayerController : MonoBehaviour
     [Header("LayerMasks")]
     private LayerMask groundMask;
 
+    [Header("AnimStats")]
+    public int fistLayerId;
+    public int swordLayerId;
+    public int greatSwordLayerId;
+    public int dualSwordLayerId;
+
     //Vars for development (should not be serializing after build)
     /*[SerializeField] */private float groundHitDis = 0.28f;
     /*[SerializeField] */private float slideHitDis = 0.1f;
@@ -108,6 +114,12 @@ public class PlayerController : MonoBehaviour
 
         groundMask = LayerMask.GetMask("Ground");
         attackModel.attackCountMax = weaponModel.currentWeapon.attackCountMax;
+
+        fistLayerId = playerAnim.GetLayerIndex("BareHand");
+        swordLayerId = playerAnim.GetLayerIndex("Sword");
+        greatSwordLayerId = playerAnim.GetLayerIndex("GreatSword");
+        dualSwordLayerId = playerAnim.GetLayerIndex("DualSword");
+
         ChangeState(moveState);
     }
 

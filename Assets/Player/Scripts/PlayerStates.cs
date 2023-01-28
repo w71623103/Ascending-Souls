@@ -274,7 +274,40 @@ public class PlayerAttackSPState : PlayerState
     }
 
     public override void Update(PlayerController pl)
-    { }
+    {
+        switch(pl.weaponModel.currentWeapon.type)
+        {
+            case Weapons.WeaponType.BareHand:
+                if (!((pl.playerAnim.GetCurrentAnimatorStateInfo(pl.fistLayerId).IsName("In")) || (pl.playerAnim.GetCurrentAnimatorStateInfo(pl.fistLayerId).IsName("out"))))
+                {
+                    pl.ChangeState(pl.moveState);
+                }
+                break;
+
+            case Weapons.WeaponType.Sword:
+                if (!((pl.playerAnim.GetCurrentAnimatorStateInfo(pl.swordLayerId).IsName("In")) || (pl.playerAnim.GetCurrentAnimatorStateInfo(pl.fistLayerId).IsName("out"))))
+                {
+                    pl.ChangeState(pl.moveState);
+                }
+                break;
+
+            case Weapons.WeaponType.GreatSword:
+                if (!((pl.playerAnim.GetCurrentAnimatorStateInfo(pl.greatSwordLayerId).IsName("In")) || (pl.playerAnim.GetCurrentAnimatorStateInfo(pl.fistLayerId).IsName("out"))))
+                {
+                    pl.ChangeState(pl.moveState);
+                }
+                break;
+
+            case Weapons.WeaponType.DualBlade:
+                if (!((pl.playerAnim.GetCurrentAnimatorStateInfo(pl.dualSwordLayerId).IsName("In")) || (pl.playerAnim.GetCurrentAnimatorStateInfo(pl.fistLayerId).IsName("out"))))
+                {
+                    pl.ChangeState(pl.moveState);
+                }
+                break;
+
+        }
+        
+    }
 
     public override void FixedUpdate(PlayerController pl)
     {
