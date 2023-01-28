@@ -169,21 +169,23 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: -322768895, guid: 145a1864487b96e4f8f6c4f183a98a4f, type: 3}
+      value: {fileID: -1036107964, guid: 2deff51a4bbf80341bd1fe698749e80c, type: 3}
     - time: 0.083333336
-      value: {fileID: 1400500669, guid: 145a1864487b96e4f8f6c4f183a98a4f, type: 3}
+      value: {fileID: -1171527400, guid: 2deff51a4bbf80341bd1fe698749e80c, type: 3}
     - time: 0.16666667
-      value: {fileID: -340713978, guid: 145a1864487b96e4f8f6c4f183a98a4f, type: 3}
+      value: {fileID: -438906983, guid: 2deff51a4bbf80341bd1fe698749e80c, type: 3}
     - time: 0.25
-      value: {fileID: 2128078795, guid: 145a1864487b96e4f8f6c4f183a98a4f, type: 3}
+      value: {fileID: 852200562, guid: 2deff51a4bbf80341bd1fe698749e80c, type: 3}
     - time: 0.33333334
-      value: {fileID: 327083677, guid: 145a1864487b96e4f8f6c4f183a98a4f, type: 3}
+      value: {fileID: -2123703443, guid: 2deff51a4bbf80341bd1fe698749e80c, type: 3}
     - time: 0.41666666
-      value: {fileID: -548108291, guid: 145a1864487b96e4f8f6c4f183a98a4f, type: 3}
+      value: {fileID: -975011855, guid: 2deff51a4bbf80341bd1fe698749e80c, type: 3}
     - time: 0.5
-      value: {fileID: -1275177652, guid: e21d8199162583e4db845cf82bd8baf6, type: 3}
+      value: {fileID: -811290074, guid: 2deff51a4bbf80341bd1fe698749e80c, type: 3}
     - time: 0.5833333
-      value: {fileID: 510198540, guid: 145a1864487b96e4f8f6c4f183a98a4f, type: 3}
+      value: {fileID: 762670258, guid: 2deff51a4bbf80341bd1fe698749e80c, type: 3}
+    - time: 0.6666667
+      value: {fileID: 1584215654, guid: 2deff51a4bbf80341bd1fe698749e80c, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -238,20 +240,21 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: -322768895, guid: 145a1864487b96e4f8f6c4f183a98a4f, type: 3}
-    - {fileID: 1400500669, guid: 145a1864487b96e4f8f6c4f183a98a4f, type: 3}
-    - {fileID: -340713978, guid: 145a1864487b96e4f8f6c4f183a98a4f, type: 3}
-    - {fileID: 2128078795, guid: 145a1864487b96e4f8f6c4f183a98a4f, type: 3}
-    - {fileID: 327083677, guid: 145a1864487b96e4f8f6c4f183a98a4f, type: 3}
-    - {fileID: -548108291, guid: 145a1864487b96e4f8f6c4f183a98a4f, type: 3}
-    - {fileID: -1275177652, guid: e21d8199162583e4db845cf82bd8baf6, type: 3}
-    - {fileID: 510198540, guid: 145a1864487b96e4f8f6c4f183a98a4f, type: 3}
+    - {fileID: -1036107964, guid: 2deff51a4bbf80341bd1fe698749e80c, type: 3}
+    - {fileID: -1171527400, guid: 2deff51a4bbf80341bd1fe698749e80c, type: 3}
+    - {fileID: -438906983, guid: 2deff51a4bbf80341bd1fe698749e80c, type: 3}
+    - {fileID: 852200562, guid: 2deff51a4bbf80341bd1fe698749e80c, type: 3}
+    - {fileID: -2123703443, guid: 2deff51a4bbf80341bd1fe698749e80c, type: 3}
+    - {fileID: -975011855, guid: 2deff51a4bbf80341bd1fe698749e80c, type: 3}
+    - {fileID: -811290074, guid: 2deff51a4bbf80341bd1fe698749e80c, type: 3}
+    - {fileID: 762670258, guid: 2deff51a4bbf80341bd1fe698749e80c, type: 3}
+    - {fileID: 1584215654, guid: 2deff51a4bbf80341bd1fe698749e80c, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.6666666
+    m_StopTime: 0.75
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -427,6 +430,13 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 0
+    functionName: clearVel
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.083333336
     functionName: playSword
     data: 
@@ -434,42 +444,42 @@ AnimationClip:
     floatParameter: 0
     intParameter: 4
     messageOptions: 0
-  - time: 0.16666667
-    functionName: moveForward
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 6
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.25
+  - time: 0.083333336
     functionName: disableTurn
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.5
+  - time: 0.16666667
+    functionName: moveForward
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: -6
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.5833333
     functionName: moveForward
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.5
+  - time: 0.5833333
     functionName: setGravity
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 4
     intParameter: 0
     messageOptions: 0
-  - time: 0.5
+  - time: 0.5833333
     functionName: allowTurn
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.5833333
+  - time: 0.6666667
     functionName: endAttack
     data: 
     objectReferenceParameter: {fileID: 0}

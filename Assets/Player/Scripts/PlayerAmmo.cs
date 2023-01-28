@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class PlayerAmmo : Stat
 {
-    [SerializeField] private float percent;
+    [SerializeField] public float percent;
     [SerializeField] private GameObject ammoBar;
-    [SerializeField] private GameObject dropWeaponButton;
+    [SerializeField] private GameObject[] weaponIconFrame;
     [SerializeField] private PlayerController pl;
-    public float ammoNext = 0f;
+
+    [Header("Switch Weapon Point")]
+    public int switchPoint = 0;
+    public int switchPointMax = 2;
+    public TMPro.TMP_Text switchPointText;
+
     public float ammoDamageModifier_NormalAttack;
     public float ammoDamageModifier_HeavyAttack;
     [SerializeField] protected MoreMountains.Feedbacks.MMFeedbacks ammoFeedback;
@@ -18,41 +23,66 @@ public class PlayerAmmo : Stat
     {
         percent = num / numMax;
         ammoBar.transform.transform.localScale = new Vector3(percent, 1, 1);
-        if(ammoDamage() != 0f)
+        if (switchPoint == 0) ammoDamageModifier_NormalAttack = (1f + percent);
+        else ammoDamageModifier_NormalAttack = 2f;
+        ammoDamageModifier_HeavyAttack = 8;
+        
+        switch(pl.weaponModel.currentWeapon.type)
         {
-            ammoDamageModifier_NormalAttack = ammoDamage();
-            ammoDamageModifier_HeavyAttack = 1 / ammoDamage();
-        }
-        if (percent < 0.5f)
-        { 
-            pl.weaponModel.WeaponIcon.GetComponent<UnityEngine.UI.Image>().sprite = pl.weaponModel.currentWeapon.lowAmmoIcon;
-            if(dropWeaponButton != null) dropWeaponButton.SetActive(true);
-        }
-        else
-        { 
-            pl.weaponModel.WeaponIcon.GetComponent<UnityEngine.UI.Image>().sprite = pl.weaponModel.currentWeapon.icon;
-            if (dropWeaponButton != null) dropWeaponButton.SetActive(false);
+            case Weapons.WeaponType.BareHand:
+                weaponIconFrame[0].SetActive(true);
+                weaponIconFrame[1].SetActive(false);
+                weaponIconFrame[2].SetActive(false);
+                weaponIconFrame[3].SetActive(false);
+                break;
+            case Weapons.WeaponType.Sword:
+                weaponIconFrame[0].SetActive(false);
+                weaponIconFrame[1].SetActive(true);
+                weaponIconFrame[2].SetActive(false);
+                weaponIconFrame[3].SetActive(false);
+                break;
+            case Weapons.WeaponType.DualBlade:
+                weaponIconFrame[0].SetActive(false);
+                weaponIconFrame[1].SetActive(false);
+                weaponIconFrame[2].SetActive(true);
+                weaponIconFrame[3].SetActive(false);
+                break;
+            case Weapons.WeaponType.GreatSword:
+                weaponIconFrame[0].SetActive(false);
+                weaponIconFrame[1].SetActive(false);
+                weaponIconFrame[2].SetActive(false);
+                weaponIconFrame[3].SetActive(true);
+                break;
         }
 
+        if(percent >= 1 && switchPoint < switchPointMax)
+        {
+            switchPoint++;
+            num = 0f;
+        }
+
+        if(switchPointText != null)
+        {
+            switchPointText.text = switchPoint.ToString();
+        }
     }
 
-    public void consumeAmmo()
+    public void addAmmo()
     {
-        decrease(pl.weaponModel.currentWeapon.ammoConsume);
+        increase(pl.weaponModel.currentWeapon.ammoConsume);
         ammoFeedback?.PlayFeedbacks();
     }
 
-    public float ammoDamage()
+    public void useSwitchPoint()
     {
-        if (percent > 0.5f && percent <= 1f)
-            return 1f;
-        else if (percent <= 0.5f && percent > 0.3f)
-            return 0.5f;
-        else if (percent <= 0.3f && percent > 0f)
-            return 0.3f;
-        else if (percent <= 0f)
-            return 0.1f;
-
-        return 0f;
+        if(switchPoint - 1 > 0)
+        {
+            switchPoint--;
+        }
+        else
+        {
+            switchPoint = 0;
+        }
     }
+
 }

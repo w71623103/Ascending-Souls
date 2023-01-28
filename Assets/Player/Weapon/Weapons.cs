@@ -25,19 +25,20 @@ public class Weapons : ScriptableObject
     }
 
     public WeaponType type;
+    public int attackCountMax;
     public float ammoConsume;
     public Sprite icon;
     public Sprite lowAmmoIcon;
 
-    [Tooltip("0-2: Normal Attack Damage; 3: Attack In Damage; 4£ºAttack Out Damage; 5: Attack Up Damage")]
+    [Tooltip("0-4: Normal Attack Damage; 5: Attack In Damage; 6£ºAttack Out Damage; 7: Attack Up Damage")]
     public List<int> DamageTable = new List<int>();
 
-    [Tooltip("0-2: Normal Attack HitRecover; 3: Attack In HitRecover; 4£ºAttack Out HitRecover; 5: Attack Up HitRecover")]
+    [Tooltip("0-4: Normal Attack HitRecover; 5: Attack In HitRecover; 6£ºAttack Out HitRecover; 7: Attack Up HitRecover")]
     public List<float> HitRecoverTable = new List<float>();
 
-    [Tooltip("0-2: Normal Attack HitBackSpeed; 3: Attack In HitBackSpeed; 4£ºAttack Out HitBackSpeed; 5: Attack Up HitBackSpeed")]
+    [Tooltip("0-4: Normal Attack HitBackSpeed; 5: Attack In HitBackSpeed; 6£ºAttack Out HitBackSpeed; 7: Attack Up HitBackSpeed")]
     public List<float> HitBackSpeedTable = new List<float>();
 
-    [Tooltip("0-2: Normal Attack HitPauseTime; 3: Attack In HitPauseTime; 4£ºAttack Out HitPauseTime; 5: Attack Up HitPauseTime")]
+    [Tooltip("0-4: Normal Attack HitPauseTime; 5: Attack In HitPauseTime; 6£ºAttack Out HitPauseTime; 7: Attack Up HitPauseTime")]
     public List<int> HitPauseTimeTable = new List<int>();
 }

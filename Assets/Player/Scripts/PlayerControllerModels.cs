@@ -59,19 +59,28 @@ public class PlayerAttackModel
     //This Model only controls variables for the action to work.
     //This is NOT the Model for attack Stats.
     public int attackCount = 0;
-    public int attackCountMax = 3;
+    public int attackCountMax = 5;
+    public int attackCountAir = 0;
+    public int attackCountAirMax = 3;
     public bool allowInput;
     public bool comboed;
     public float attackTimer;
     public float attackTimerMax;
-    public int airAttackCount;
-    public int airAttackCountMax;
+    public float attackTimerAir;
+    public float attackTimerAirMax;
+    public int airAttackComboCount;
+    public int airAttackComboCountMax;
     public bool allowTurn = true;
+    public float comboDropTime = 1f;
+    public float comboDropTimer = 0f;
+    public bool dropComboBool = false;
+    public int historyAttacCount;
 }
 
 [System.Serializable]
 public class PlayerGrappleModel
 {
+    [Header("MoveGrapple")]
     public GameObject point;
     public float reachTolerance;
     public float directionChangeTolerance;
@@ -84,6 +93,13 @@ public class PlayerGrappleModel
     public float weaponGrappleLength;
     public Transform WeaponGrappleStartPos;
     public Transform WeaponGrappleTargetPos;
+
+    [Header("EnemyGrapple")]
+    public GameObject enemyPoint;
+    public GrappleEnemyArea EnemySensor;
+    public Transform enemyGrapplePos;
+    public float enemyGrappleTimer;
+    public float enemyGrappleTimerMax;
 }
 
 [System.Serializable]
@@ -99,10 +115,6 @@ public class PlayerWeaponModel
     public Weapons greatSword;
     public Weapons dualSword;
 
-    [Header("Drop Weapon Types")]
-    public GameObject swordPick;
-    public GameObject greatSwordPick;
-    public GameObject dualSwordPick;
 }
 
 [System.Serializable]

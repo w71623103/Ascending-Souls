@@ -60,6 +60,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "GrappleE",
+                    "type": "Button",
+                    "id": "fe03b9ec-45a3-44be-849c-f8edd1b64bd0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "DropWeapon",
                     "type": "Button",
                     "id": "eff746a7-8d7b-407a-b4ef-dc15bae16a9b",
@@ -81,6 +90,42 @@
                     "name": "Heal",
                     "type": "Button",
                     "id": "dbf6e64e-63b4-4113-877c-0cebbffe0c65",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "switchFist",
+                    "type": "Button",
+                    "id": "80141996-2b57-46e8-bae9-1281db7f8e9c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "switchSword",
+                    "type": "Button",
+                    "id": "0c933ba4-bccb-4d45-807f-f47be2d3bcfa",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "switchDualBlade",
+                    "type": "Button",
+                    "id": "4c61e76d-404a-4342-b3b0-df3889b847b4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "switchGreatSword",
+                    "type": "Button",
+                    "id": "761a2345-8c11-4f3e-850b-bbc4e9387106",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -199,61 +244,6 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "xboxDpad",
-                    "id": "aa544e92-c924-45c9-aa1c-d9a55e405a73",
-                    "path": "2DVector",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "up",
-                    "id": "c0b155e9-8a73-40d0-be74-f674413a4a0a",
-                    "path": "<XInputController>/dpad/up",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "706cd46c-e3ee-4084-82a5-d99876a35884",
-                    "path": "<XInputController>/dpad/down",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "left",
-                    "id": "37f0859b-c2ab-4f4a-b7ad-c35906c0803d",
-                    "path": "<XInputController>/dpad/left",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "2db65a63-f48d-47c4-8bbe-77884a1a0038",
-                    "path": "<XInputController>/dpad/right",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "",
                     "id": "41637b3f-3999-462b-a044-fbdd52ddbdcf",
                     "path": "<Keyboard>/k",
@@ -345,7 +335,7 @@
                     "name": "",
                     "id": "62edcede-4c92-4bcf-bde9-641e22c96251",
                     "path": "<Keyboard>/l",
-                    "interactions": "",
+                    "interactions": "Tap(pressPoint=0.25)",
                     "processors": "",
                     "groups": "Keyboard",
                     "action": "Grapple",
@@ -431,12 +421,133 @@
                 },
                 {
                     "name": "",
-                    "id": "16a8fe8f-2dcc-478b-9391-56cc608dfe5d",
+                    "id": "21a1cec4-e61c-4b26-b86a-533590b7ed0d",
+                    "path": "<Keyboard>/h",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "switchFist",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8293ca2c-2119-4ccb-ac91-9be98d280cc2",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "xbox",
+                    "action": "switchFist",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "652b6e4f-4645-44ea-890a-e28e618c5ddc",
+                    "path": "<Keyboard>/u",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "switchSword",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "158b9e6d-3546-44db-817b-d21247fa36ba",
+                    "path": "<Gamepad>/dpad/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "xbox",
+                    "action": "switchSword",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ea466981-4bfa-4819-a577-7259831ff6fe",
+                    "path": "<Keyboard>/i",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "switchDualBlade",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "324f2a07-ee14-43dc-a7c6-2fd104f64c3b",
+                    "path": "<Gamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "xbox",
+                    "action": "switchDualBlade",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "452eb31c-a4b8-49b1-a8aa-5c723eda4d45",
+                    "path": "<Keyboard>/o",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "switchGreatSword",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "255b2799-75b2-4af5-b4c8-bbb982d8b790",
+                    "path": "<Gamepad>/dpad/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "xbox",
+                    "action": "switchGreatSword",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5bcff10e-9ffe-4ec1-91ca-acf5d30fca07",
+                    "path": "<Keyboard>/l",
+                    "interactions": "Hold(duration=0.3,pressPoint=0.25)",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "GrappleE",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a7244933-be34-493f-8103-6ee2ad82744c",
                     "path": "<XInputController>/rightTrigger",
                     "interactions": "",
                     "processors": "",
+                    "groups": "xbox",
+                    "action": "GrappleE",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8e9df632-515e-4d91-9ff1-99b8191cb03b",
+                    "path": "<Keyboard>/semicolon",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "GrappleE",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "91c7ab3b-c964-4e43-a8ff-728ca4453265",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
                     "groups": "",
-                    "action": "Grapple",
+                    "action": "GrappleE",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -15,9 +15,11 @@ public class PlayerController : MonoBehaviour
         slide,
         wallJump,
         attack,
+        attackAir,
         grapple,
         attackSP,
         attackUP,
+        attackDown,
         hurt,
     }
     public state statevisualizer;
@@ -41,6 +43,7 @@ public class PlayerController : MonoBehaviour
     public PlayerWallJumpState wallJumpState = new PlayerWallJumpState();
     public PlayerGrappleState grappleState = new PlayerGrappleState();
     public PlayerAttackState attackState = new PlayerAttackState();
+    public PlayerAttackStateAir attackStateAir = new PlayerAttackStateAir();
     public PlayerAttackSPState attackStateSP = new PlayerAttackSPState();
     public PlayerAttackUPState attackStateUp = new PlayerAttackUPState();
     public PlayerHurtState hurtState = new PlayerHurtState();
@@ -104,6 +107,7 @@ public class PlayerController : MonoBehaviour
         jumpVelHash = Animator.StringToHash("jumpVelocity");
 
         groundMask = LayerMask.GetMask("Ground");
+        attackModel.attackCountMax = weaponModel.currentWeapon.attackCountMax;
         ChangeState(moveState);
     }
 
@@ -158,10 +162,24 @@ public class PlayerController : MonoBehaviour
                     break;
             }
         }
+
+        //weaponModel.WeaponIcon.GetComponent<UnityEngine.UI.Image>().sprite = weaponModel.currentWeapon.icon;
+
         //Timers
         if (dashModel.dashCDTimer >= 0) dashModel.dashCDTimer -= Time.deltaTime;
         if (slideModel.slidingCancelTimer >= 0) slideModel.slidingCancelTimer -= Time.deltaTime;
         if (attackModel.attackTimer > 0f && generalState != attackState) attackModel.attackTimer -= Time.deltaTime;
+        if (attackModel.attackTimerAir > 0f && generalState != attackState) attackModel.attackTimerAir -= Time.deltaTime;
+        if (attackModel.comboDropTimer > 0f) attackModel.comboDropTimer -= Time.deltaTime;
+        else
+        {
+            if (attackModel.dropComboBool)
+            {
+                attackModel.historyAttacCount = 0;
+                attackModel.dropComboBool = false;
+            }
+        }
+        if (grappleModel.enemyGrappleTimer >= 0) grappleModel.enemyGrappleTimer -= Time.deltaTime;
     }
 
     void FixedUpdate()
@@ -185,7 +203,7 @@ public class PlayerController : MonoBehaviour
 
     void OnJump()
     {
-        if(generalState != jumpState && jumpModel.jumpCount > 0 && generalState != slideState && generalState != wallJumpState && generalState != attackStateSP && generalState != hurtState)
+        if(generalState != jumpState && jumpModel.jumpCount > 0 && generalState != slideState && generalState != wallJumpState && generalState != attackStateSP && generalState != hurtState && generalState != attackStateDown && generalState != attackStateAir)
         {
             gameObject.layer = 6;
             if (moveModel.VerticalMovement >= 0f)
@@ -244,29 +262,44 @@ public class PlayerController : MonoBehaviour
         Application.Quit();
     }
     
-    void OnDropWeapon()
+    /*void OnDropWeapon()
     {
-        if (/*jumpModel.isGrounded*/true)
+        if (*//*jumpModel.isGrounded*//*ammo.percent >= 0.75)
         {
             if (generalState != attackStateSP && generalState != dashState && generalState != wallJumpState && generalState != grappleState && generalState != slideState && generalState != grappleJumpState)
             {
                 if (weaponModel.currentWeapon.type != Weapons.WeaponType.BareHand)
                 {
+                    ammo.decrease(100f);
                     attackModel.allowInput = false;
                     weaponModel.nextWeapon = weaponModel.bareHand;
                     ChangeState(attackStateSP);
                 }
             }
         }
-    }
+    }*/
 
     public void pickWeapon(Weapons newWeapon)
     {
-        if (generalState != attackStateSP && generalState != attackState && generalState != dashState && generalState != wallJumpState && generalState != grappleState && generalState != slideState && generalState != hurtState && generalState != grappleJumpState)
+        if (generalState != attackStateSP && generalState != dashState && generalState != wallJumpState && generalState != grappleState && generalState != slideState && generalState != grappleJumpState)
         {
+            //ammo.increase(20f);
             attackModel.allowInput = false;
             weaponModel.nextWeapon = newWeapon;
             ChangeState(attackStateSP);
+            /*switch (weaponModel.currentWeapon.type)
+            {
+                case Weapons.WeaponType.Sword:
+                    //Instantiate(weaponModel.swordPick, transform.position, Quaternion.identity);
+                    break;
+                case Weapons.WeaponType.GreatSword:
+                    //Instantiate(weaponModel.greatSwordPick, transform.position, Quaternion.identity);
+                    break;
+                case Weapons.WeaponType.DualBlade:
+                    //Instantiate(weaponModel.dualSwordPick, transform.position, Quaternion.identity);
+                    break;
+            }*/
+            weaponModel.currentWeapon = newWeapon;
         }
     }
 
@@ -274,42 +307,53 @@ public class PlayerController : MonoBehaviour
     {
         if (moveModel.VerticalMovement > 0)
         {
-            if (attackModel.attackTimer <= 0f && generalState != attackState && generalState != dashState && generalState != attackStateSP && generalState != attackStateUp && generalState != hurtState && generalState != grappleJumpState)
+            if (attackModel.attackTimer <= 0f && generalState != attackState && generalState != dashState && generalState != attackStateSP && generalState != attackStateUp && generalState != hurtState && generalState != grappleJumpState && generalState != attackStateDown)
                 ChangeState(attackStateUp);
             else if (attackModel.allowInput && generalState != attackStateSP && generalState != attackStateUp)
             {
                 ChangeState(attackStateUp);
             }
         }
-        else if(moveModel.VerticalMovement < 0)
+        /*else if(moveModel.VerticalMovement < 0)
         {
-            if (attackModel.attackTimer <= 0f && generalState != attackState && generalState != dashState && generalState != attackStateSP && generalState != attackStateUp && generalState != hurtState && generalState != grappleJumpState)
+            if(!jumpModel.isGrounded)
             {
-                if (weaponModel.currentWeapon.type != Weapons.WeaponType.BareHand)
+                if (attackModel.attackTimer <= 0f && generalState != attackState && generalState != dashState && generalState != attackStateSP && generalState != attackStateUp && generalState != hurtState && generalState != grappleJumpState && generalState != attackStateDown)
+                    ChangeState(attackStateDown*//*attackState*//*);
+                else if (attackModel.allowInput && generalState != attackStateSP && generalState != attackStateUp && generalState != attackStateDown)
                 {
-                    weaponModel.nextWeapon = weaponModel.bareHand;
-                    ChangeState(attackStateDown);
+                    ChangeState(attackStateDown*//*attackState*//*);
                 }
             }
-            else if (attackModel.allowInput && generalState != attackStateSP && generalState != attackStateUp && generalState != grappleJumpState)
+            else //if on ground, down+attack equals a normal attack combo
             {
-                if (weaponModel.currentWeapon.type != Weapons.WeaponType.BareHand)
+                if (generalState != attackState && generalState != dashState && generalState != attackStateSP && generalState != attackStateUp && generalState != hurtState && generalState != attackStateDown)
                 {
-                    weaponModel.nextWeapon = weaponModel.bareHand;
-                    ChangeState(attackStateDown);
+                    if (attackModel.attackTimer <= 0f)
+                        ChangeState(attackState);
+                }
+                else
+                {
+                    if (attackModel.allowInput && generalState != attackStateSP && generalState != attackStateUp && generalState != grappleJumpState && generalState != attackStateDown)
+                    {
+                        attackModel.allowInput = false;
+                        attackModel.comboed = true;
+                        nextCombo();
+                    }
                 }
             }
-        }
+            
+        }*/
         else if (jumpModel.isGrounded)
         {
-            if (generalState != attackState && generalState != dashState && generalState != attackStateSP && generalState != attackStateUp && generalState != hurtState)
+            if (generalState != attackState && generalState != dashState && generalState != attackStateSP && generalState != attackStateUp && generalState != hurtState && generalState != attackStateDown)
             {
-                if (attackModel.attackTimer <= 0f)
+                if (/*attackModel.attackTimer <= 0f*/true)
                     ChangeState(attackState);
             }
             else
             {
-                if (attackModel.allowInput && generalState != attackStateSP && generalState != attackStateUp && generalState != grappleJumpState)
+                if (attackModel.allowInput && generalState != attackStateSP && generalState != attackStateUp && generalState != grappleJumpState && generalState != hurtState && generalState != attackStateDown)
                 {
                     attackModel.allowInput = false;
                     attackModel.comboed = true;
@@ -319,12 +363,12 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if(attackModel.airAttackCount > 0)
+            if(attackModel.airAttackComboCount > 0)
             {
-                if (generalState != attackState && generalState != dashState && generalState != hurtState && generalState != grappleJumpState)
+                if (generalState != attackStateAir && generalState != dashState && generalState != hurtState && generalState != grappleJumpState && generalState != attackStateDown)
                 {
-                    if (attackModel.attackTimer <= 0f)
-                        ChangeState(attackState);
+                    if (attackModel.attackTimerAir <= 0f)
+                        ChangeState(attackStateAir);
                 }
                 else
                 {
@@ -341,18 +385,33 @@ public class PlayerController : MonoBehaviour
 
     private void nextCombo()
     {
-        if(attackModel.attackCount < attackModel.attackCountMax)
+        if (jumpModel.isGrounded)
         {
-            attackModel.attackCount++;
-        }else
+            if (attackModel.attackCount < attackModel.attackCountMax)
+            {
+                attackModel.attackCount++;
+            }
+            else
+            {
+                attackModel.attackCount = 1;
+            }
+        }
+        else
         {
-            attackModel.attackCount = 1;
+            if (attackModel.attackCountAir < attackModel.attackCountAirMax)
+            {
+                attackModel.attackCountAir++;
+            }
+            else
+            {
+                attackModel.attackCountAir = 1;
+            }
         }
     }
 
     void OnGrapple()
     {
-        if(generalState != attackState && generalState != dashState && generalState != hurtState && generalState != attackStateSP && generalState != attackStateUp)
+        if(generalState != attackState && generalState != dashState && generalState != hurtState && generalState != attackStateSP && generalState != attackStateUp && generalState != attackStateDown)
         {
             Vector3 grappleDir = (grappleModel.point.transform.position - transform.position).normalized;
             float length = Vector3.Distance(transform.position, grappleModel.point.transform.position);
@@ -362,6 +421,25 @@ public class PlayerController : MonoBehaviour
                 GameObject target = grappleModel.GrappleSensor.closestGrapplePoint;
                 if (target != null) StartCoroutine(disableGrapplePoint(target));
                 ChangeState(grappleState);
+            }
+        }
+    }
+
+    void OnGrappleE()
+    {
+        if (generalState != dashState && generalState != hurtState && generalState != slideState && grappleModel.enemyGrappleTimer <= 0f)
+        {
+            Vector3 grappleDir = (grappleModel.enemyPoint.transform.position - transform.position).normalized;
+            float length = Vector3.Distance(transform.position, grappleModel.enemyPoint.transform.position);
+            RaycastHit2D hitGround = Physics2D.Raycast(transform.position, grappleDir, length, groundMask);
+            if (hitGround.collider == null && generalState != dashState && grappleModel.enemyPoint.activeSelf)
+            {
+                GameObject target = grappleModel.EnemySensor.closestGrapplePoint;
+                if (target != null)
+                {
+                    grappleModel.enemyGrappleTimer = grappleModel.enemyGrappleTimerMax;
+                    target.GetComponent<Enemy>().startGrapple(grappleModel.enemyGrapplePos.position, this);
+                }
             }
         }
     }
@@ -380,16 +458,16 @@ public class PlayerController : MonoBehaviour
 
     void OnInteract()
     {
-        if (generalState != attackStateSP && generalState != attackState && generalState != dashState && generalState != wallJumpState && generalState != grappleState && generalState != slideState && generalState != hurtState)
+        if (generalState != attackStateSP && generalState != attackState && generalState != dashState && generalState != wallJumpState && generalState != grappleState && generalState != slideState && generalState != hurtState && generalState != attackStateDown)
         {
             RaycastHit2D hit = Physics2D.BoxCast(transform.position, interactModel.interactBoxSize, 0f, Vector2.zero, Mathf.Infinity, LayerMask.GetMask("Interactable"));
             if (hit.collider != null)
             {
                 switch (hit.collider.tag)
                 {
-                    case "WeaponPick":
+                    /*case "WeaponPick":
                         hit.collider.GetComponent<WeaponPick>().OnInteract(this);
-                        break;
+                        break;*/
 
                     case "SavePoint":
                         hit.collider.GetComponent<SavePoint>().OnInteract(this);
@@ -408,6 +486,38 @@ public class PlayerController : MonoBehaviour
         heal.Heal();
     }
 
+    void OnSwitchFist()
+    {
+        if(ammo.switchPoint > 0)
+        {
+            pickWeapon(weaponModel.bareHand);
+        }
+    }
+
+    void OnSwitchSword()
+    {
+        if (ammo.switchPoint > 0)
+        {
+            pickWeapon(weaponModel.sword);
+        }
+    }
+
+    void OnSwitchDualBlade()
+    {
+        if (ammo.switchPoint > 0)
+        {
+            pickWeapon(weaponModel.dualSword);
+        }
+    }
+
+    void OnSwitchGreatSword()
+    {
+        if (ammo.switchPoint > 0)
+        {
+            pickWeapon(weaponModel.greatSword);
+        }
+    }
+
     void flip()
     {
         transform.localScale = new Vector3((float)moveModel.Direction, transform.localScale.y, transform.localScale.z);
@@ -421,10 +531,10 @@ public class PlayerController : MonoBehaviour
             jumpModel.isGrounded = true;
             if (hitJump.collider.CompareTag("Platform")) jumpModel.isPlatform = true;
             dashModel.allowDash = true;
-            attackModel.airAttackCount = attackModel.airAttackCountMax;
-            if (generalState != attackState) attackModel.attackCount = 0;
+            attackModel.airAttackComboCount = attackModel.airAttackComboCountMax;
+            //if (generalState != attackState) attackModel.attackCount = 0;
             if(playerRB.gravityScale != slideModel.normalGravity) playerRB.gravityScale = slideModel.normalGravity;
-            if (playerRB.velocity.y < 0f && generalState != dashState && generalState != moveState && generalState != attackState && generalState != grappleState && generalState != attackStateSP && generalState != hurtState)
+            if (playerRB.velocity.y < 0f && generalState != dashState && generalState != moveState && generalState != attackState && generalState != attackStateAir && generalState != grappleState && generalState != attackStateSP && generalState != hurtState && generalState != attackStateDown)
             { 
                 ChangeState(moveState);
                 jumpModel.jumpCount = jumpModel.jumpCountMax;
@@ -467,12 +577,12 @@ public class PlayerController : MonoBehaviour
             0);
         RaycastHit2D hit = Physics2D.Raycast(HitSlideStart,
             new Vector2((int)moveModel.Direction, 0), slideHitDis, groundMask);
-        if (hit.collider != null && hit.collider.CompareTag("Slidable") && slideModel.canSlide && slideModel.slidingCancelTimer <= 0f && generalState != slideState && generalState != attackStateSP)
+        if (hit.collider != null && hit.collider.CompareTag("Slidable") && slideModel.canSlide && slideModel.slidingCancelTimer <= 0f && generalState != slideState && generalState != attackStateSP && generalState != attackStateAir && generalState != attackStateDown)
         {
-            attackModel.airAttackCount = attackModel.airAttackCountMax;
+            attackModel.airAttackComboCount = attackModel.airAttackComboCountMax;
             ChangeState(slideState);
         }
-        else if (hit.collider == null && generalState != jumpState && generalState != dashState && generalState != wallJumpState && generalState != attackState && generalState != grappleState && generalState != attackStateSP && generalState != grappleJumpState && generalState != hurtState)
+        else if (hit.collider == null && generalState != jumpState && generalState != dashState && generalState != wallJumpState && generalState != attackState && generalState != grappleState && generalState != attackStateSP && generalState != grappleJumpState && generalState != hurtState && generalState != attackStateAir && generalState != attackStateDown)
         {
             ChangeState(moveState);
         }
@@ -530,4 +640,21 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(duration);
         playerSP.material.SetInt("_Hit", 0);
     }
+
+    public void DropCombo()
+    {
+        /*StartCoroutine(DropComboCoro());*/
+        attackModel.historyAttacCount = attackModel.attackCount;
+        attackModel.attackCount = 0;
+        attackModel.comboDropTimer = attackModel.comboDropTime;
+        attackModel.dropComboBool = true;
+    }
+
+    /*IEnumerator DropComboCoro()
+    {
+        Debug.Log("1");
+        yield return new WaitForSecondsRealtime(attackModel.comboDropTime);
+        Debug.Log("2");
+        attackModel.attackCount = 0;
+    }*/
 }

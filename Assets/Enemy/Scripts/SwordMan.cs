@@ -172,4 +172,9 @@ public class SwordMan : Enemy
         else
             moveModel.Direction = EnemyMoveModel.EnemyDirection.Right;
     }
+
+    public override void startGrapple(Vector3 targetPos, PlayerController pl)
+    {
+        Debug.Log("I'm not moveable");
+    }
 }

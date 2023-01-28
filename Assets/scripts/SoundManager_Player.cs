@@ -46,7 +46,7 @@ public class SoundManager_Player : MonoBehaviour
 
     public void playRoll()
     {
-        audioSource.volume = 1f;
+        audioSource.volume = 0.2f;
         audioSource.PlayOneShot(rollSound);
     }
 

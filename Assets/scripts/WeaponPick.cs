@@ -25,7 +25,8 @@ public class WeaponPick : Interactable
 
     public override void OnInteract(PlayerController pl)
     {
-        pl.ammo.ammoNext = ammoInThis;
+        /*pl.ammo.ammoNext = ammoInThis;*/
+        //pl.ammo.ammoNext = 0;
         pl.pickWeapon(myWeapon);
         Destroy(gameObject);
     }

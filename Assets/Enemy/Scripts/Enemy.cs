@@ -14,6 +14,7 @@ public abstract class Enemy : MonoBehaviour
         Chase,
         Attack,
         AttackFinish,
+        Dragged,
     }
     public enemyStates statevisualizer;
     [Header("Component")]
@@ -62,6 +63,8 @@ public abstract class Enemy : MonoBehaviour
     protected abstract void checkPlayer();
 
     public abstract void turn();
+
+    public abstract void startGrapple(Vector3 targetPos, PlayerController pl);
 
     #region coroutines
     public void HitFlash()

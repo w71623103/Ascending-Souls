@@ -30,7 +30,7 @@ AnimationClip:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.083333336
+        time: 0.41666666
         value: 1
         inSlope: Infinity
         outSlope: Infinity
@@ -39,7 +39,7 @@ AnimationClip:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.16666667
+        time: 0.5
         value: 0
         inSlope: Infinity
         outSlope: Infinity
@@ -67,7 +67,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.083333336
+        time: 0.41666666
         value: -0.09787983
         inSlope: 0
         outSlope: 0
@@ -95,7 +95,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.083333336
+        time: 0.41666666
         value: 1.5695714
         inSlope: 0
         outSlope: 0
@@ -113,17 +113,25 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: -954573409, guid: e21d8199162583e4db845cf82bd8baf6, type: 3}
+      value: {fileID: -572295598, guid: 48981565a45c0014783b1484dd162aa6, type: 3}
     - time: 0.083333336
-      value: {fileID: -1977849866, guid: e21d8199162583e4db845cf82bd8baf6, type: 3}
+      value: {fileID: -1351886996, guid: 48981565a45c0014783b1484dd162aa6, type: 3}
     - time: 0.16666667
-      value: {fileID: -109399841, guid: e21d8199162583e4db845cf82bd8baf6, type: 3}
+      value: {fileID: -2147470823, guid: 48981565a45c0014783b1484dd162aa6, type: 3}
     - time: 0.25
-      value: {fileID: -52072026, guid: e21d8199162583e4db845cf82bd8baf6, type: 3}
+      value: {fileID: 1444422133, guid: 48981565a45c0014783b1484dd162aa6, type: 3}
     - time: 0.33333334
-      value: {fileID: -2022310666, guid: e21d8199162583e4db845cf82bd8baf6, type: 3}
+      value: {fileID: 498167676, guid: 48981565a45c0014783b1484dd162aa6, type: 3}
     - time: 0.41666666
-      value: {fileID: -2022310666, guid: e21d8199162583e4db845cf82bd8baf6, type: 3}
+      value: {fileID: 1693237768, guid: 48981565a45c0014783b1484dd162aa6, type: 3}
+    - time: 0.5
+      value: {fileID: -413628689, guid: 48981565a45c0014783b1484dd162aa6, type: 3}
+    - time: 0.5833333
+      value: {fileID: -413628689, guid: 48981565a45c0014783b1484dd162aa6, type: 3}
+    - time: 0.6666667
+      value: {fileID: -413628689, guid: 48981565a45c0014783b1484dd162aa6, type: 3}
+    - time: 0.75
+      value: {fileID: -413628689, guid: 48981565a45c0014783b1484dd162aa6, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -164,18 +172,22 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: -954573409, guid: e21d8199162583e4db845cf82bd8baf6, type: 3}
-    - {fileID: -1977849866, guid: e21d8199162583e4db845cf82bd8baf6, type: 3}
-    - {fileID: -109399841, guid: e21d8199162583e4db845cf82bd8baf6, type: 3}
-    - {fileID: -52072026, guid: e21d8199162583e4db845cf82bd8baf6, type: 3}
-    - {fileID: -2022310666, guid: e21d8199162583e4db845cf82bd8baf6, type: 3}
-    - {fileID: -2022310666, guid: e21d8199162583e4db845cf82bd8baf6, type: 3}
+    - {fileID: -572295598, guid: 48981565a45c0014783b1484dd162aa6, type: 3}
+    - {fileID: -1351886996, guid: 48981565a45c0014783b1484dd162aa6, type: 3}
+    - {fileID: -2147470823, guid: 48981565a45c0014783b1484dd162aa6, type: 3}
+    - {fileID: 1444422133, guid: 48981565a45c0014783b1484dd162aa6, type: 3}
+    - {fileID: 498167676, guid: 48981565a45c0014783b1484dd162aa6, type: 3}
+    - {fileID: 1693237768, guid: 48981565a45c0014783b1484dd162aa6, type: 3}
+    - {fileID: -413628689, guid: 48981565a45c0014783b1484dd162aa6, type: 3}
+    - {fileID: -413628689, guid: 48981565a45c0014783b1484dd162aa6, type: 3}
+    - {fileID: -413628689, guid: 48981565a45c0014783b1484dd162aa6, type: 3}
+    - {fileID: -413628689, guid: 48981565a45c0014783b1484dd162aa6, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.5
+    m_StopTime: 0.8333333
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -204,7 +216,7 @@ AnimationClip:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.083333336
+        time: 0.41666666
         value: 1
         inSlope: Infinity
         outSlope: Infinity
@@ -213,7 +225,7 @@ AnimationClip:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.16666667
+        time: 0.5
         value: 0
         inSlope: Infinity
         outSlope: Infinity
@@ -241,7 +253,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.083333336
+        time: 0.41666666
         value: -0.09787983
         inSlope: 0
         outSlope: 0
@@ -269,7 +281,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.083333336
+        time: 0.41666666
         value: 1.5695714
         inSlope: 0
         outSlope: 0
@@ -289,34 +301,6 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
-    functionName: playSword
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 1
-    messageOptions: 0
-  - time: 0
-    functionName: disableTurn
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0
-    functionName: moveForward
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 6
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.16666667
-    functionName: moveForward
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.16666667
     functionName: allowInput
     data: 
     objectReferenceParameter: {fileID: 0}
@@ -324,13 +308,34 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0.25
+    functionName: moveForward
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 6
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.33333334
+    functionName: disableTurn
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.5
+    functionName: moveForward
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.6666667
     functionName: allowTurn
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.41666666
+  - time: 0.75
     functionName: endAttack
     data: 
     objectReferenceParameter: {fileID: 0}

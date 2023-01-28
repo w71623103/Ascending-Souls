@@ -6,22 +6,22 @@ public class AttackColOut : AttackColBase
 {
     protected override int getFinalDmg()
     {
-        return (int) (pl.weaponModel.currentWeapon.DamageTable[4] * plAmmo.ammoDamageModifier_HeavyAttack);
+        return (int) (pl.weaponModel.currentWeapon.DamageTable[pl.weaponModel.currentWeapon.DamageTable.Count - 2] * plAmmo.ammoDamageModifier_HeavyAttack);
     }
 
     protected override float getHitRecover()
     {
-        return pl.weaponModel.currentWeapon.HitRecoverTable[4];
+        return pl.weaponModel.currentWeapon.HitRecoverTable[pl.weaponModel.currentWeapon.DamageTable.Count - 2];
     }
 
     protected override float getHitBackSpeed()
     {
-        return pl.weaponModel.currentWeapon.HitBackSpeedTable[4];
+        return pl.weaponModel.currentWeapon.HitBackSpeedTable[pl.weaponModel.currentWeapon.DamageTable.Count - 2];
     }
 
     protected override int getHitPauseTime()
     {
-        return pl.weaponModel.currentWeapon.HitPauseTimeTable[4];
+        return pl.weaponModel.currentWeapon.HitPauseTimeTable[pl.weaponModel.currentWeapon.DamageTable.Count - 2];
     }
 
     protected override float getVerticalDir()

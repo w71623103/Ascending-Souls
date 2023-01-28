@@ -32,5 +32,6 @@ public class SavePoint : Interactable
         saveManager.updateSavePoint(savePos, sceneName);
         pl.GetComponent<Hp>().hp = pl.GetComponent<Hp>().mHp;
         pl.GetComponent<PlayerHeal>().num = pl.GetComponent<PlayerHeal>().numMax;
+        pl.GetComponent<PlayerAmmo>().switchPoint = pl.GetComponent<PlayerAmmo>().switchPointMax;
     }
 }

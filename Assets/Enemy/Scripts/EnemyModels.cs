@@ -58,3 +58,15 @@ public class EnemyAttackModel
     public float attackFinishMoveSpeed;
     public bool playerInRange;
 }
+
+[System.Serializable]
+public class EnemyDragModel
+{
+    public Vector3 targetPosition;
+    public float disTolerance;
+    public PlayerController pl;
+    public LineRenderer emLine;
+    [Header("Lerp Timer")]
+    public float travelTime = 2f;
+    public float timer = 0f;
+}

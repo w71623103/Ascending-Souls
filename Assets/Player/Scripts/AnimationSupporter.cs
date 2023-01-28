@@ -17,6 +17,11 @@ public class AnimationSupporter : MonoBehaviour
         pl.playerRB.velocity = new Vector2 (vel, pl.playerRB.velocity.y);
     }
 
+    public void attackJump()
+    {
+        pl.playerRB.velocity = Vector2.up * pl.jumpModel.jumpSpeed;
+    }
+
     public void EndDash()
     {
         if (pl.generalState == pl.dashState)
@@ -57,21 +62,35 @@ public class AnimationSupporter : MonoBehaviour
                 if (pl.jumpModel.isGrounded) pl.ChangeState(pl.moveState);
                 else pl.ChangeState(pl.jumpState);
             }
-            else if (pl.playerAnim.GetInteger("AttackLight") != pl.attackModel.attackCount)
+            else
             {
-                //play next combo
-                pl.playerAnim.SetInteger("AttackLight", pl.attackModel.attackCount);
+                if (pl.jumpModel.isGrounded)
+                {
+                    if (pl.playerAnim.GetInteger("AttackLight") != pl.attackModel.attackCount)
+                    {
+                        //play next combo
+                        pl.playerAnim.SetInteger("AttackLight", pl.attackModel.attackCount);
+                    }
+                }
+                else
+                {
+                    if (pl.playerAnim.GetInteger("AttackLight") != pl.attackModel.attackCountAir)
+                    {
+                        //play next combo
+                        pl.playerAnim.SetInteger("AttackLight", pl.attackModel.attackCountAir);
+                    }
+                }
             }
         }
     }
 
     public void switchWeapon()
     {
-        GameObject weaponDrop;
+        //GameObject weaponDrop;
         //switch layer
         if (pl.weaponModel.nextWeapon != null)
         {
-            switch (pl.weaponModel.currentWeapon.type)
+            /*switch (pl.weaponModel.currentWeapon.type)
             {
                 case Weapons.WeaponType.Sword:
                     weaponDrop = Instantiate(pl.weaponModel.swordPick, transform.position, Quaternion.identity);
@@ -85,7 +104,7 @@ public class AnimationSupporter : MonoBehaviour
                     weaponDrop = Instantiate(pl.weaponModel.dualSwordPick, transform.position, Quaternion.identity);
                     weaponDrop.GetComponent<WeaponPick>().ammoInThis = pl.ammo.num;
                     break;
-            }
+            }*/
             switch (pl.weaponModel.nextWeapon.type)
             {
                 case Weapons.WeaponType.BareHand:
@@ -116,12 +135,14 @@ public class AnimationSupporter : MonoBehaviour
             //set trigger
             pl.playerAnim.SetTrigger("WeaponIn");
             pl.weaponModel.currentWeapon = pl.weaponModel.nextWeapon;
-            if (pl.weaponModel.currentWeapon.type == Weapons.WeaponType.BareHand) pl.ammo.num = pl.ammo.numMax;
+            /*if (pl.weaponModel.currentWeapon.type == Weapons.WeaponType.BareHand) pl.ammo.num = pl.ammo.numMax;
             else
             {
                 pl.ammo.num = pl.ammo.ammoNext;
                 pl.ammo.ammoNext = 0;
-            }
+            }*/
+            pl.ammo.useSwitchPoint();
+            pl.attackModel.attackCountMax = pl.weaponModel.currentWeapon.attackCountMax;
             pl.weaponModel.nextWeapon = null;
             
         }
@@ -138,7 +159,7 @@ public class AnimationSupporter : MonoBehaviour
 
     public void reduceAirAttack()
     {
-        pl.attackModel.airAttackCount--;
+        pl.attackModel.airAttackComboCount--;
     }
 
     public void smallJumpInAir()
@@ -163,5 +184,26 @@ public class AnimationSupporter : MonoBehaviour
     public void clearVerticalVel()
     {
         pl.playerRB.velocity = new Vector2(pl.playerRB.velocity.x, 0f);
+    }
+
+    public void clearVel()
+    {
+        pl.playerRB.velocity = Vector2.zero;
+    }
+    
+    public void canTakeDamage()
+    {
+        Physics2D.IgnoreLayerCollision(6, 14, false);
+        Physics2D.IgnoreLayerCollision(6, 16, false);
+        Physics2D.IgnoreLayerCollision(7, 14, false);
+        Physics2D.IgnoreLayerCollision(7, 16, false);
+    }
+
+    public void noTakeDamage()
+    {
+        Physics2D.IgnoreLayerCollision(6, 14, true);
+        Physics2D.IgnoreLayerCollision(6, 16, true);
+        Physics2D.IgnoreLayerCollision(7, 14, true);
+        Physics2D.IgnoreLayerCollision(7, 16, true);
     }
 }

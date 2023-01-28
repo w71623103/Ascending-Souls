@@ -100,8 +100,8 @@ public class PlayerDashState : PlayerState
         {
             pl.playerRB.gravityScale = 0f;
             pl.dashModel.allowDash = false;
-            if (pl.attackModel.airAttackCount < pl.attackModel.airAttackCountMax)
-                pl.attackModel.airAttackCount++;
+            if (pl.attackModel.airAttackComboCount < pl.attackModel.airAttackComboCountMax)
+                pl.attackModel.airAttackComboCount++;
         }
         Physics2D.IgnoreLayerCollision(6, 14, true);
         Physics2D.IgnoreLayerCollision(6, 16, true);
@@ -211,34 +211,54 @@ public class PlayerAttackState : PlayerState
     {
         pl.statevisualizer = PlayerController.state.attack;
         // start attack
-        if (pl.jumpModel.isGrounded) pl.attackModel.attackCount = 1;
+        if (pl.jumpModel.isGrounded && pl.attackModel.historyAttacCount == 0) pl.attackModel.attackCount = 1;
         else
         { 
-            if (pl.attackModel.attackCount < pl.attackModel.attackCountMax) pl.attackModel.attackCount++; 
+            if (pl.attackModel.historyAttacCount < pl.attackModel.attackCountMax) pl.attackModel.attackCount = pl.attackModel.historyAttacCount + 1; 
             else pl.attackModel.attackCount = 1;
         }
-        if (pl.jumpModel.isGrounded) pl.playerAnim.SetInteger("AttackLight", 1);
-        else pl.playerAnim.SetInteger("AttackLight", pl.attackModel.attackCount);
+        /*if (pl.jumpModel.isGrounded) pl.playerAnim.SetInteger("AttackLight", 1);
+        else */pl.playerAnim.SetInteger("AttackLight", pl.attackModel.attackCount);
         pl.playerRB.velocity = Vector2.zero;
-        //if (!pl.jumpModel.isGrounded) pl.playerRB.gravityScale = 0f;
     }
 
     public override void Update(PlayerController pl)
     { }
 
     public override void FixedUpdate(PlayerController pl)
-    {
-        //if(!pl.jumpModel.isGrounded) pl.playerRB.velocity = new Vector2(pl.moveModel.HorizontalMovement * pl.moveModel.hspeed, pl.playerRB.velocity.y);
-    }
+    { }
 
     public override void ExitState(PlayerController pl)
     {
-        //pl.canInput = false;
-        //pl.playerAnim.SetInteger(pl.attackLightHash, 0);
         pl.playerAnim.SetInteger("AttackLight", 0);
-        if(pl.jumpModel.isGrounded) pl.attackModel.attackCount = 0;
+        if(pl.jumpModel.isGrounded) pl.DropCombo() /*pl.attackModel.attackCount = 0*/;
         pl.attackModel.attackTimer = pl.attackModel.attackTimerMax;
-        //pl.playerRB.gravityScale = pl.slideModel.normalGravity;
+    }
+}
+
+public class PlayerAttackStateAir : PlayerState
+{
+    public override void EnterState(PlayerController pl)
+    {
+        pl.statevisualizer = PlayerController.state.attackAir;
+        // start attack
+        if (pl.attackModel.attackCountAir < pl.attackModel.attackCountAirMax) pl.attackModel.attackCountAir++;
+        else pl.attackModel.attackCountAir = 1;
+        pl.playerAnim.SetInteger("AttackLight", pl.attackModel.attackCountAir);
+        pl.playerRB.velocity = Vector2.zero;
+    }
+
+    public override void Update(PlayerController pl)
+    { }
+
+    public override void FixedUpdate(PlayerController pl)
+    { }
+
+    public override void ExitState(PlayerController pl)
+    {
+        pl.playerAnim.SetInteger("AttackLight", 0);
+        if (pl.jumpModel.isGrounded) pl.attackModel.attackCountAir = 0;
+        pl.attackModel.attackTimerAir = pl.attackModel.attackTimerAirMax;
     }
 }
 
@@ -317,7 +337,7 @@ public class PlayerAttackDownState : PlayerState
 
     public override void FixedUpdate(PlayerController pl)
     {
-        pl.playerRB.velocity = new Vector2(pl.playerRB.velocity.x, 0f);
+        //pl.playerRB.velocity = new Vector2(pl.playerRB.velocity.x, 0f);
     }
 
     public override void ExitState(PlayerController pl)

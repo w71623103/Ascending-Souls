@@ -40,7 +40,7 @@ public abstract class AttackColBase: MonoBehaviour
 
     protected void OnTriggerEnter2D(Collider2D collision)
     {
-        plAmmo.consumeAmmo();
+        plAmmo.addAmmo();
         collision.gameObject.GetComponent<Enemy>().OnHit(finalDamage, attackDir, hitBackSpeed, pushType, hitRecover);
         if(collision.gameObject.GetComponent<Hp>() != null)
         {
